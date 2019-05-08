@@ -720,11 +720,11 @@ public:
 	};
 
 	/* companions to the operator overload for - below*/
-	int Integer::operator -=(Integer& otherInteger)
+	/*int Integer::operator -=(Integer& otherInteger)
 	{
 		val -= otherInteger.value();
 		return val;
-	};
+	};*/
 
 	/* companions to the operator overload for - below*/
 	int operator -=(const int other)

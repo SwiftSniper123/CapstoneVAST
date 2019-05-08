@@ -33,6 +33,9 @@
     <ClCompile Include="VAST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VASTConstants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Environment.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VASTConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

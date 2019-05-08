@@ -99,39 +99,15 @@
                     <name>config_location</name>
                 </key>
                 <value>
-                    <name>C:/Users/jaron/source/repos/VAST-Test-Bed/VASTTesting/SumoConfig/my_config_file.sumocfg</name>
+                    <name>C:/Users/jaron/PycharmProjects/SumoTraci/WorkingDir/my_config_file.sumocfg</name>
                 </value>
             </pair>
             <pair type="optional">
                 <key>
-                    <name>obstacle_ids</name>
+                    <name>array</name>
                 </key>
                 <value>
-                    <name>array, 0</name>
-                </value>
-            </pair>
-			<pair type="optional">
-                <key>
-                    <name>obstacle_pos</name>
-                </key>
-                <value>
-                    <name>array, 0</name>
-                </value>
-            </pair>
-			<pair type="optional">
-                <key>
-                    <name>obstacle_speeds</name>
-                </key>
-                <value>
-                    <name>array, 0</name>
-                </value>
-            </pair>
-			<pair type="optional">
-                <key>
-                    <name>obstacle_accelerations</name>
-                </key>
-                <value>
-                    <name>array, 0</name>
+                    <name>array, 1,2,1</name>
                 </value>
             </pair>
         </map>

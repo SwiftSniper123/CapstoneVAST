@@ -2,15 +2,23 @@
 #include "Sensor.h"
 #include <vector>
 #include "vector3.h"
+#include <string>
+#include "VType.h"
+#include <map>
+
+typedef std::map<string, VType*> dataMap;
 
 class AV
 {
 public:
-	AV(vector3 _position, vector3 _bounds, vector3 _rotation)
+	AV();
+	AV(string _name, vector3 _position, vector3 _bounds, vector3 _rotation, int _port, string _exe)
 	{
 		position = _position;
 		bounds = _bounds;
 		rotation = _rotation;
+		port = _port;
+		exe = _exe;
 	}
 	~AV();
 	void update(vector3 _position, vector3 _rotation)
@@ -22,5 +30,10 @@ public:
 	vector3 position;
 	vector3 bounds;
 	vector3 rotation;
+	int port;
+	string exe;
+
+private:
+
 };
 

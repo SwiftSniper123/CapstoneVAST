@@ -69,7 +69,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(projectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -121,6 +123,7 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="VAST.cpp" />
+    <ClCompile Include="VASTConstants.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AV.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="VAST.h" />
+    <ClInclude Include="VASTConstants.h" />
     <ClInclude Include="vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

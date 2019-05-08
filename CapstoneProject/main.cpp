@@ -9,7 +9,11 @@ using namespace std;
 class GroundAV : AV
 {
 public:
-	GroundAV(vector3 _position, vector3 _bounds, vector3 _rotation) : AV(_position, _bounds, _rotation) {};
+	GroundAV() {};
+	GroundAV(string _name, vector3 _position, vector3 _bounds, vector3 _rotation, int _port, string _exe, dataMap _AVMap) : AV(_name, _position, _bounds, _rotation, _port, _exe) 
+	{
+		
+	};
 };
 //Environment example
 class UnityEnvironment : Environment
@@ -31,6 +35,9 @@ private:
 
 int main(int argc, char **argv1)
 {
+	
+	
+
 	// ask user for config file
 	//get file location and name
 	/*string fileName = "VASTConfig.xml";
@@ -39,13 +46,23 @@ int main(int argc, char **argv1)
 	v->Parse();
 	cout << " parsing finished." << endl << endl;*/
 
-	/*string fileName = "";
+	VAST *v = new VAST();
+	
+	
+
+	string fileName = "";
 	cout << "Please type the configuration file location and name: ";
-	cin >> fileName;*/
+	cin >> fileName;
+
+	v->Parse(fileName);
+
+	GroundAV *test = new GroundAV();
+
+
 	
 	//make example AVs and Environment (preferably from config file)
 
-	//
+	
 
 
 	return 0;
