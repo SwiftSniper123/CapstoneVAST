@@ -6,7 +6,7 @@
 class Environment
 {
 public:
-	Environment() {};
+	Environment();
 	Environment(vector3 _bounds)
 	{
 		bounds = _bounds;
