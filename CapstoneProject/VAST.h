@@ -32,6 +32,7 @@ public:
 	dataMap* _VASTConfigMap = nullptr;
 	dataMap _EnvConfig;
 	dataMap _AVConfig;
+	vector<dataMap> _AVConfigs;
 
 	dataMap _AVRun_Data;
 	dataMap _EnvRun_Data;

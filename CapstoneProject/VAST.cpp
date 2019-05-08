@@ -191,8 +191,8 @@ void VAST::Parse(string _file)
 										{
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
-												String *v = new String(new VType(val));
-												_AVRun_Data.insert(namedData(_currentKey, v));
+												Vector3 *v = new Vector3(new VType(val));
+												_AVConfig.insert(namedData(_currentKey, v));
 											}
 										}
 										else if (_currentKey == AV_ORIENTATION)
@@ -200,7 +200,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Vector3 *v = new Vector3(new VType(val));
-												_AVRun_Data.insert(namedData(_currentKey, v));
+												_AVConfig.insert(namedData(_currentKey, v));
 											}
 										}
 										else if (_currentKey == AV_BOUNDS)
@@ -208,7 +208,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Vector3 *v = new Vector3(new VType(val));
-												_AVRun_Data.insert(namedData(_currentKey, v));
+												_AVConfig.insert(namedData(_currentKey, v));
 											}
 										}
 										else if (_currentKey == SENSORS)
@@ -238,49 +238,64 @@ void VAST::Parse(string _file)
 				//std::cout << std::endl;
 
 				// instantiation and other aggregate data joining
-				if (_currentModule == AV_MODULE)
+
+				if (_currentModule == "AV")
 				{
-					//VType *name = _AVConfig.at(AV_NAME);
-					//av_array->add(name);
-
-					/*
-					// add the AV name to the VAST Config list of AV IDs used by other components like ScenarioMetric
-					if (_VASTConfigMap->find(AV_LIST) != _VASTConfigMap->end() &&
-						_VASTConfigMap->at(AV_LIST)->isA(ARRAY_TYPE))
-					{
-						Array* av_array = ((Array*)_VASTConfigMap->at(AV_LIST));
-						av_array->add(new String(name));
-					}
-
-					// add the AV name to the AV Run data list of AV IDs used by other components like ScenarioMetric
-					if (_AVRun_Data.find(AV_LIST) != _AVRun_Data.end() &&
-						_AVRun_Data[AV_LIST]->isA(ARRAY_TYPE))
-					{
-						Array* av_array = ((Array*)_AVRun_Data[AV_LIST]);
-						av_array->add(new String(name));
-					}*/
-
-					// store the config and run data under this AV ID
-					//_all_AVConfigs->emplace(name->s_value(), _AVConfig);
-					//_all_AVRunData->emplace(name->s_value(), _AVRun_Data);
+					string name = _AVConfig.at("av_name")->s_value();
+					_AVConfigs.push_back(_AVConfig);
 				}
-
-				else if (_currentModule == ENVIRONMENT_MODULE)
+				else if (_currentModule == "Environment")
 				{
-					// create an Environment ID based upon the list size, then store config and run data
-					//string ID = "" + (int(_all_EnvConfigs->size()) + 1);
-					//_all_EnvConfigs->emplace(ID, _EnvConfig);
-					//_all_EnvRunData->emplace(ID, _EnvRun_Data);
+					
 				}
-				else if (_currentModule == VAST_MODULE)
+				else if (_currentModule == "VAST")
 				{
-					/*_EventTree = new EventTree(
-						((Double*)_VASTConfigMap->at(TIME_STEP))->value(),
-						((Double*)_VASTConfigMap->at(TIME_RATIO))->value(),
-						((Double*)_VASTConfigMap->at(MAX_RUN_TIME))->value(),
-						((Integer*)_VASTConfigMap->at(NUM_REPLCATION))->value(),
-						_dbName);*/
+					
 				}
+				
+				//if (_currentModule == AV_MODULE)
+				//{
+				//	//VType *name = _AVConfig.at(AV_NAME);
+				//	//av_array->add(name);
+
+				//	/*
+				//	// add the AV name to the VAST Config list of AV IDs used by other components like ScenarioMetric
+				//	if (_VASTConfigMap->find(AV_LIST) != _VASTConfigMap->end() &&
+				//		_VASTConfigMap->at(AV_LIST)->isA(ARRAY_TYPE))
+				//	{
+				//		Array* av_array = ((Array*)_VASTConfigMap->at(AV_LIST));
+				//		av_array->add(new String(name));
+				//	}
+
+				//	// add the AV name to the AV Run data list of AV IDs used by other components like ScenarioMetric
+				//	if (_AVRun_Data.find(AV_LIST) != _AVRun_Data.end() &&
+				//		_AVRun_Data[AV_LIST]->isA(ARRAY_TYPE))
+				//	{
+				//		Array* av_array = ((Array*)_AVRun_Data[AV_LIST]);
+				//		av_array->add(new String(name));
+				//	}*/
+
+				//	// store the config and run data under this AV ID
+				//	//_all_AVConfigs->emplace(name->s_value(), _AVConfig);
+				//	//_all_AVRunData->emplace(name->s_value(), _AVRun_Data);
+				//}
+
+				//else if (_currentModule == ENVIRONMENT_MODULE)
+				//{
+				//	// create an Environment ID based upon the list size, then store config and run data
+				//	//string ID = "" + (int(_all_EnvConfigs->size()) + 1);
+				//	//_all_EnvConfigs->emplace(ID, _EnvConfig);
+				//	//_all_EnvRunData->emplace(ID, _EnvRun_Data);
+				//}
+				//else if (_currentModule == VAST_MODULE)
+				//{
+				//	/*_EventTree = new EventTree(
+				//		((Double*)_VASTConfigMap->at(TIME_STEP))->value(),
+				//		((Double*)_VASTConfigMap->at(TIME_RATIO))->value(),
+				//		((Double*)_VASTConfigMap->at(MAX_RUN_TIME))->value(),
+				//		((Integer*)_VASTConfigMap->at(NUM_REPLCATION))->value(),
+				//		_dbName);*/
+				//}
 			}
 
 
