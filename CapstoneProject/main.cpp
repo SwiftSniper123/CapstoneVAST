@@ -89,7 +89,10 @@ int main(int argc, char **argv1)
 	cin.ignore();
 
 
-	//launch post-sim executable
-	system("TestAutonomousVehicleDemo.exe");
+	//launch post-sim executable if the post-sim box is checked
+	//if (vast->_VASTConfigMap[VIZ])
+	if (vast->_VASTConfigMap->operator[](VIZ))
+		system("TestAutonomousVehicleDemo.exe");
+
 	return 0;
 }

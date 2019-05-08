@@ -364,3 +364,18 @@ void VAST::fillMap(string currentModule, dataMap &run_Data, string type, string 
 		run_Data.insert(namedData(key, v));
 	}
 }
+
+void VAST::Run()
+{
+	//execute the program until the max run time is achieved
+	while (currentSimTime < _VASTConfigMap->operator[](MAX_RUN_TIME)->s_value)
+	{
+		//get states of AVs and publish information to database
+		//
+		//
+
+		//get states
+
+		//advance current time to the environment time
+	}
+}

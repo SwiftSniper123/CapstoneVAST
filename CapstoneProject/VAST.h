@@ -29,7 +29,7 @@ public:
 	std::vector<AV*> AVs;
 	Environment* env;
 
-	dataMap* _VASTConfigMap = nullptr;
+	dataMap *_VASTConfigMap = nullptr;
 	dataMap _EnvConfig;
 	dataMap _AVConfig;
 	vector<dataMap> _AVConfigs;
@@ -38,10 +38,11 @@ public:
 	dataMap _EnvRun_Data;
 
 	void Parse(string _file);
+	void Run();
 
 private:
 	void fillMap(string currentModule, dataMap &run_Data, string type, string key, string value);
-
+	double currentSimTime = 0;
 	
 };
 
