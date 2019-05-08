@@ -13,10 +13,3 @@ private:
 	VAST *_VASTObject;
 };
 
-class ScenarioMetric
-{
-public:
-	ScenarioMetric();
-	~ScenarioMetric();
-};
-
