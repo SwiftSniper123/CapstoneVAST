@@ -88,5 +88,8 @@ int main(int argc, char **argv1)
 	
 	cin.ignore();
 
+
+	//launch post-sim executable
+	system("TestAutonomousVehicleDemo.exe");
 	return 0;
 }
