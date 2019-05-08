@@ -14,7 +14,7 @@ HighestXValue::~HighestXValue()
 {
 	for (int n = 0; n < numAVs; n++)
 	{
-		if (_VASTObject->AVs[n]->position.y > value)
-			value = _VASTObject->AVs[n]->position.y;
+		if (_VASTObject->AVs[n]->position.x > value)
+			value = _VASTObject->AVs[n]->position.x;
 	}
 }

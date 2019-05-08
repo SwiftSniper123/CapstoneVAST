@@ -1,8 +1,8 @@
-#include "HighestXValue.h"
+#include "HighestZValue.h"
 
 
 
-HighestXValue::HighestXValue(VAST *VASTObject) : ScenarioMetric(VASTObject)
+HighestZValue::HighestZValue(VAST *VASTObject) : ScenarioMetric(VASTObject)
 {
 	//get number of AVs
 	numAVs = _VASTObject->AVs.size();
@@ -10,11 +10,11 @@ HighestXValue::HighestXValue(VAST *VASTObject) : ScenarioMetric(VASTObject)
 }
 
 
-HighestXValue::~HighestXValue()
+HighestZValue::~HighestZValue()
 {
 	for (int n = 0; n < numAVs; n++)
 	{
-		if (_VASTObject->AVs[n]->position.y > value)
-			value = _VASTObject->AVs[n]->position.y;
+		if (_VASTObject->AVs[n]->position.z > value)
+			value = _VASTObject->AVs[n]->position.z;
 	}
 }

@@ -1,10 +1,10 @@
 #pragma once
 #include "ScenarioMetric.h"
-class HighestXValue : public ScenarioMetric
+class HighestZValue : public ScenarioMetric
 {
 public:
-	HighestXValue(VAST *VASTObject);
-	~HighestXValue();
+	HighestZValue(VAST *VASTObject);
+	~HighestZValue();
 	double value;
 };
 
