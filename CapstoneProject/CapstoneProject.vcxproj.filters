@@ -39,6 +39,12 @@
     <ClCompile Include="ScenarioMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AverageAcceleration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HighestYValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Environment.h">
@@ -63,6 +69,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScenarioMetric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AverageAcceleration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HighestYValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

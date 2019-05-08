@@ -121,7 +121,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AV.cpp" />
+    <ClCompile Include="AverageAcceleration.cpp" />
     <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="HighestYValue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ScenarioMetric.cpp" />
@@ -131,7 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AV.h" />
+    <ClInclude Include="AverageAcceleration.h" />
     <ClInclude Include="Environment.h" />
+    <ClInclude Include="HighestYValue.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ScenarioMetric.h" />
     <ClInclude Include="Sensor.h" />

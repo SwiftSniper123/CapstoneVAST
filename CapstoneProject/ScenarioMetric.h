@@ -4,19 +4,9 @@
 class ScenarioMetric
 {
 public:
-	ScenarioMetric(VAST *VASTObject)
-	{
-		_VASTObject = VASTObject;
-	}
+	ScenarioMetric(VAST *VASTObject);
 	~ScenarioMetric();
-private:
+	virtual void calculate() = 0;
+	int numAVs;
 	VAST *_VASTObject;
 };
-
-class ScenarioMetric
-{
-public:
-	ScenarioMetric();
-	~ScenarioMetric();
-};
-
