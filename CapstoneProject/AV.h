@@ -27,6 +27,7 @@ public:
 		rotation = _rotation;
 	}
 	std::vector<Sensor> sensors;
+	std::vector<ScenarioMetric*> metrics;
 	vector3 position;
 	vector3 bounds;
 	vector3 rotation;

@@ -7,6 +7,7 @@ HighestZValue::HighestZValue(VAST *VASTObject) : ScenarioMetric(VASTObject)
 	//get number of AVs
 	numAVs = _VASTObject->AVs.size();
 	value = -1.0*INFINITY;
+	name = "HighestZValue";
 }
 
 
