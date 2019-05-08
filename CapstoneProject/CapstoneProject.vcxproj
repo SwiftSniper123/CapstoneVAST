@@ -73,7 +73,7 @@
     <IncludePath>$(projectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(projectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,6 +124,7 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ScenarioMetric.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="VAST.cpp" />
     <ClCompile Include="VASTConstants.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="AV.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ScenarioMetric.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="VAST.h" />
     <ClInclude Include="VASTConstants.h" />
