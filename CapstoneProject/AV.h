@@ -32,7 +32,8 @@ public:
 	vector3 rotation;
 	int port;
 	string exe;
-
+	void run();
+	void writeToDatabase();
 private:
 
 };
