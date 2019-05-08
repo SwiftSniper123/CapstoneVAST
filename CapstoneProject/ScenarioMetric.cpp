@@ -4,6 +4,7 @@
 
 ScenarioMetric::ScenarioMetric(VAST *VASTObject)
 {
+	_VASTObject = VASTObject;
 }
 
 
