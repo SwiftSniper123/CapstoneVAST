@@ -56,14 +56,14 @@ int main(int argc, char **argv1)
 
 	v->Parse(fileName);
 
-	GroundAV *test = new GroundAV();
+	//GroundAV *test = new GroundAV();
 
 
 	
 	//make example AVs and Environment (preferably from config file)
 
 	
-
+	cin.ignore();
 
 	return 0;
 }

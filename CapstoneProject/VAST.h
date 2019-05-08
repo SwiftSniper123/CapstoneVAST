@@ -29,7 +29,7 @@ public:
 	std::vector<AV*> AVs;
 	Environment* env;
 
-	dataMap *_VASTConfigMap;
+	dataMap* _VASTConfigMap = nullptr;
 	dataMap _EnvConfig;
 	dataMap _AVConfig;
 

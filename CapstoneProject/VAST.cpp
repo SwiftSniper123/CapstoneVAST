@@ -2,6 +2,7 @@
 
 VAST::VAST()
 {
+	_VASTConfigMap = new dataMap();
 }
 
 
