@@ -126,6 +126,7 @@
     <ClCompile Include="HighestZValue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ProximitySensor.cpp" />
     <ClCompile Include="ScenarioMetric.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="VAST.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="HighestXValue.h" />
     <ClInclude Include="HighestZValue.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ProximitySensor.h" />
     <ClInclude Include="ScenarioMetric.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="VAST.h" />

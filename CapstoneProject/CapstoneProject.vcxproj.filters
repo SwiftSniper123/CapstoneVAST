@@ -45,6 +45,9 @@
     <ClCompile Include="HighestZValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProximitySensor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Environment.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HighestZValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProximitySensor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
