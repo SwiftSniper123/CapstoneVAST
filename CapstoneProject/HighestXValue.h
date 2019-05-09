@@ -3,7 +3,7 @@
 class HighestXValue : public ScenarioMetric
 {
 public:
-	HighestXValue(VAST *VASTObject);
+	HighestXValue();
 	~HighestXValue();
 };
 

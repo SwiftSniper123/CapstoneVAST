@@ -12,10 +12,8 @@ using std::string;
 class SumoEnvironment : public Environment
 {
 public:
-	SumoEnvironment(string _configFileLocation, string _SUMOexeLocation, int _port, vector3 _bounds, dataMap _envMap) : Environment(_configFileLocation, _SUMOexeLocation, _port, _bounds)
-	{
-		envMap = _envMap;
-	}
+	SumoEnvironment() {};
+	SumoEnvironment(string _configFileLocation, string _SUMOexeLocation, int _port, vector3 _bounds, dataMap _envMap);
 
 	dataMap envMap;
 
@@ -29,13 +27,13 @@ public:
 	void changeAVCommand();
 
 	//called by the update function to run all of the functions of the child classes
-	virtual dataMap callUpdateFunctions();
+	//virtual dataMap callUpdateFunctions();
 
 	void stopReplication(bool another, string runID);
 
-	void setSeed(string seed);
+	void setSeed(string _seed);
 
-	void addAV(AV *AV);
+	void addAV(AV *_AV);
 
 private:
 	string fileLocation;
@@ -50,7 +48,7 @@ private:
 	dataMap configData;
 	vector3 bounds;
 
-	LPWSTR cmdArgs;
+	LPSTR cmdArgs;
 	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
 	STARTUPINFO StartupInfo; //This is an [in] parameter
 };

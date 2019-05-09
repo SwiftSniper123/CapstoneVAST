@@ -1,14 +1,16 @@
 #pragma once
-#include "VAST.h"
+
+#include <string>
+
+using std::string;
 
 class ScenarioMetric
 {
 public:
-	ScenarioMetric(VAST *VASTObject);
+	ScenarioMetric();
 	~ScenarioMetric();
 	virtual void calculate() = 0;
 	int numAVs;
-	VAST *_VASTObject;
 	string name;
 	double value;
 };

@@ -3,7 +3,7 @@
 class HighestZValue : public ScenarioMetric
 {
 public:
-	HighestZValue(VAST *VASTObject);
+	HighestZValue();
 	~HighestZValue();
 };
 

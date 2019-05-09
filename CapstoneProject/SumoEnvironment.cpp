@@ -1,11 +1,8 @@
 #include "SumoEnvironment.h"
 
-SumoEnvironment::SumoEnvironment(string _configFileLocation, string _SUMOexeLocation, int _port, vector3 _bounds)
+SumoEnvironment::SumoEnvironment(string _configFileLocation, string _SUMOexeLocation, int _port, vector3 _bounds, dataMap _envMap) : Environment(_configFileLocation, _SUMOexeLocation, _port, _bounds)
 {
-	fileLocation = _configFileLocation;
-	SUMOexeLocation = _SUMOexeLocation;
-	port = _port;
-	bounds = _bounds;
+	envMap = _envMap;
 }
 
 LPWSTR ConvertString(const std::string& instr)
@@ -16,7 +13,7 @@ LPWSTR ConvertString(const std::string& instr)
 	if (bufferlen == 0)
 	{
 		// Something went wrong. Perhaps, check GetLastError() and log.
-		throw InvalidArgumentException("Error converting command arguments.");
+		//throw InvalidArgumentException("Error converting command arguments.");
 	}
 
 	// Allocate new LPWSTR - must deallocate it later
@@ -32,7 +29,7 @@ LPWSTR ConvertString(const std::string& instr)
 	//delete[] widestr;
 }
 
-
+/*
 void SumoEnvironment::update(timestamp t, dataMap dataMap)
 {
 	EventTree *eventTree = this->getEventTree();
@@ -51,34 +48,35 @@ void SumoEnvironment::update(timestamp t, dataMap dataMap)
 	cout << "\nUpdating Environment Data\n";
 	this->getEventTree()->addEvent(this, t, currentData);
 	traci.simulationStep();
-}
+}*/
 
 void SumoEnvironment::openEnvironment()
 {
-	string str = _SUMOexeLocation;
+	string str = SUMOexeLocation;
 
 	ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
 	StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
 
-	if (_seed == "r" || _seed == "R")
+	if (seed == "r" || seed == "R")
 	{
 		srand(time(NULL)); //Provides a seed for the random number generator
 
 		int seed = rand() % 10000; //Generates a random seed for Sumo
 
-		str = _SUMOexeLocation + " -c " + _fileLocation + " --remote-port 1337" + " --seed " + std::to_string(seed);
+		str = SUMOexeLocation + " -c " + fileLocation + " --remote-port 1337" + " --seed " + std::to_string(seed);
 
 	}
 
-	else if (!_seed.empty())
+	else if (!seed.empty())
 	{
-		str = _SUMOexeLocation + " -c " + _fileLocation + " --remote-port 1337" + " --seed " + _seed;
+		str = SUMOexeLocation + " -c " + fileLocation + " --remote-port 1337" + " --seed " + seed;
 	}
 
 	else
-		str = _SUMOexeLocation + " -c " + _fileLocation + " --remote-port 1337";
+		str = SUMOexeLocation + " -c " + fileLocation + " --remote-port 1337";
 
-	cmdArgs = ConvertString(str);
+	//cmdArgs = ConvertString(str);
+	cmdArgs = const_cast<char *>(str.c_str());
 
 	CreateProcess(NULL, cmdArgs,
 		NULL, NULL, FALSE, 0, NULL,
@@ -91,11 +89,12 @@ void SumoEnvironment::openEnvironment()
 
 	//traci.close(); // why are we closing here??
 	std::cout << "\nOpening connection to SUMO.\n" << "TEST Traci: " << traci.simulation.getTime();
-	this->getEventTree()->start();
+	//this->getEventTree()->start();
 
 	return;
 }
 
+/*
 void SumoEnvironment::getMapInformation()
 {
 	//int IDcount = traci.vehicle.getIDCount();
@@ -147,13 +146,14 @@ void SumoEnvironment::changeAVCommand()
 			traci.vehicle.setSpeed(*av, speed * 2);
 		}
 	}
-}
+}*/
 
-void SumoEnvironment::setSeed(string seed)
+void SumoEnvironment::setSeed(string _seed)
 {
-	_seed = seed;
+	seed = _seed;
 }
 
+/*
 void SumoEnvironment::addAV(AV *AV)
 {
 	_AVid.push_back(AV->getName());
@@ -165,7 +165,7 @@ dataMap SumoEnvironment::callUpdateFunctions()
 	getMapInformation();
 	return currentData;
 }
-
+*/
 void SumoEnvironment::stopReplication(bool another, string runID)
 {
 

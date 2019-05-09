@@ -393,11 +393,12 @@ void VAST::Run()
 	Collisions << "Run_ID,Collision_Time,AV_Obj_ID,AV_Position_X,AV_Position_Y,AV_Position_Z,Col_Obj_ID" << endl;
 
 	//execute the program until the max run time is achieved
-	while (currentSimTime < _VASTConfigMap[MAX_RUN_TIME]->s_value)
+	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
 	{
 		//get states of AVs and publish information to files
 		//
 		//
+		currentSimTime += 0.1;
 
 		//get states
 

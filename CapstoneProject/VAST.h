@@ -1,7 +1,6 @@
 #pragma once
 #include "AV.h"
 #include "Environment.h"
-#include "ScenarioMetric.h"
 #include "VASTConstants.h"
 #include "VType.h"
 #include <vector>

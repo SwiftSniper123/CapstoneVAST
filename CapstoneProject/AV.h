@@ -5,6 +5,7 @@
 #include <string>
 #include "VType.h"
 #include <map>
+#include "ScenarioMetric.h"
 
 typedef std::map<string, VType*> dataMap;
 

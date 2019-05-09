@@ -2,7 +2,7 @@
 
 
 
-ScenarioMetric::ScenarioMetric(VAST *VASTObject)
+ScenarioMetric::ScenarioMetric()
 {
 }
 

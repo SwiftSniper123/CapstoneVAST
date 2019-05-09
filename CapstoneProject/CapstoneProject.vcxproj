@@ -90,6 +90,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -129,6 +132,8 @@
     <ClCompile Include="ProximitySensor.cpp" />
     <ClCompile Include="ScenarioMetric.cpp" />
     <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="socket.cpp" />
+    <ClCompile Include="storage.cpp" />
     <ClCompile Include="SumoEnvironment.cpp" />
     <ClCompile Include="TraCIAPI.cpp" />
     <ClCompile Include="VAST.cpp" />
@@ -144,6 +149,8 @@
     <ClInclude Include="ProximitySensor.h" />
     <ClInclude Include="ScenarioMetric.h" />
     <ClInclude Include="Sensor.h" />
+    <ClInclude Include="socket.h" />
+    <ClInclude Include="storage.h" />
     <ClInclude Include="SumoEnvironment.h" />
     <ClInclude Include="TraCIAPI.h" />
     <ClInclude Include="TraCIConstants.h" />
@@ -151,6 +158,7 @@
     <ClInclude Include="VAST.h" />
     <ClInclude Include="VASTConstants.h" />
     <ClInclude Include="vector3.h" />
+    <ClInclude Include="VType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

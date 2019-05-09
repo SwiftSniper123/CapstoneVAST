@@ -57,6 +57,12 @@
     <ClCompile Include="TraCIAPI.cpp">
       <Filter>Open Source</Filter>
     </ClCompile>
+    <ClCompile Include="socket.cpp">
+      <Filter>Open Source</Filter>
+    </ClCompile>
+    <ClCompile Include="storage.cpp">
+      <Filter>Open Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Environment.h">
@@ -95,9 +101,6 @@
     <ClInclude Include="SumoEnvironment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="config.h">
-      <Filter>Open Source</Filter>
-    </ClInclude>
     <ClInclude Include="TraCIAPI.h">
       <Filter>Open Source</Filter>
     </ClInclude>
@@ -106,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="TraCIDefs.h">
       <Filter>Open Source</Filter>
+    </ClInclude>
+    <ClInclude Include="AverageAcceleration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="socket.h">
+      <Filter>Open Source</Filter>
+    </ClInclude>
+    <ClInclude Include="storage.h">
+      <Filter>Open Source</Filter>
+    </ClInclude>
+    <ClInclude Include="VType.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

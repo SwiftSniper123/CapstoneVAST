@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <string>
 #include "VAST.h"
+#include "SumoEnvironment.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ public:
 
 	dataMap AVMap;
 };
+
 //Environment example
 class UnityEnvironment : public Environment
 {
@@ -34,52 +36,6 @@ private:
 	string staticObstacleOutput;
 	string dynamicObstacleRun;
 	string dynamicObstacleConfig;
-};
-
-class SumoEnvironment : public Environment
-{
-public:
-	SumoEnvironment(string _configFileLocation, string _SUMOexeLocation, int _port, vector3 _bounds, dataMap _envMap) : Environment(_configFileLocation, _SUMOexeLocation, _port, _bounds)
-	{
-		envMap = _envMap;
-	}
-
-	dataMap envMap;
-
-	//Opens the Sumo Environment with the file location
-	void openEnvironment();
-
-	//Gets the information from Sumo via traci commands
-	void getMapInformation();
-
-	//sends the new command to the AV in sumo if this is required
-	void changeAVCommand();
-
-	//called by the update function to run all of the functions of the child classes
-	virtual dataMap callUpdateFunctions();
-
-	void stopReplication(bool another, string runID);
-
-	void setSeed(string seed);
-
-	void addAV(AV *AV);
-
-private:
-	string _fileLocation;
-	int random; //Replace with function for setting the seed?
-	string _seed;
-	string _SUMOexeLocation;
-	Integer _port;
-	vector<string> _AVid;
-	TraCIAPI traci;
-	dataMap currentData;
-	dataMap _runData;
-	dataMap _configData;
-	Vector3 _bounds;
-
-	LPWSTR cmdArgs;
-	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
-	STARTUPINFO StartupInfo; //This is an [in] parameter
 };
 
 
@@ -105,7 +61,7 @@ int main(int argc, char **argv1)
 
 	vast->Parse(fileName);
 	dataMap envMap = vast->_EnvConfig;
-	vast->env = new UnityEnvironment();
+	vast->env = new SumoEnvironment();
 
 	for (int i = 0; i < vast->_AVConfigs.size(); i++)
 	{
@@ -128,6 +84,8 @@ int main(int argc, char **argv1)
 		vast->AVs.push_back(new GroundAV(AVMap[AV_NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
 	}
 	
+
+
 
 	//run VAST
 	vast->Run();

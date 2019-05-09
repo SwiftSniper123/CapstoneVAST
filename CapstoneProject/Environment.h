@@ -3,6 +3,8 @@
 #include <vector>
 #include "vector3.h"
 
+using std::string;
+
 class Environment
 {
 public:
