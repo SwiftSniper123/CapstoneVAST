@@ -25,8 +25,8 @@ public:
 	virtual void Connect() {};
 	virtual void Close() = 0;
 
-	std::vector<Obstacle> staticObstacles;
-	std::vector<Obstacle> dynamicObstacles;
+	std::vector<Obstacle*> staticObstacles;
+	std::vector<Obstacle*> dynamicObstacles;
 
 	string configFileLocation;
 	string exeLocation;

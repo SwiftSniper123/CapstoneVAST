@@ -41,6 +41,53 @@ void SumoEnvironment::Update()
 	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVs[0]->name).getString();
 	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
 	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);
+
+	std::vector<string> objList = traci.vehicle.getIDList;
+
+	for (int n = 0; n < objList.size(); n++)
+	{
+		bool instObj = true;
+		int DOindex = 0;
+		for (int a = 0; a < AVs.size(); a++)
+		{
+			if (objList[n] == AVs[a]->name) //if AV, break loop
+				instObj = false;
+
+
+			for (int d = 0; d < dynamicObstacles.size(); d++)
+				if (dynamicObstacles[d]->_name == objList[n])
+				{
+					instObj = false;
+					DOindex = d;
+				}
+
+			if (instObj)
+			{
+				vector3 tempPos;
+				tempPos.x = traci.vehicle.getPosition(objList[n]).x;
+				tempPos.y = traci.vehicle.getPosition(objList[n]).y;
+				tempPos.z = traci.vehicle.getPosition(objList[n]).z;
+
+				vector3 tempBounds;
+				tempBounds.x = 3;
+				tempBounds.y = 2;
+				tempBounds.z = 2;
+
+				vector3 tempRotation;
+				tempRotation.x = 0;
+				tempRotation.y = traci.vehicle.getAngle(objList[n]);
+				tempRotation.z = 0;
+
+				dynamicObstacles.push_back(new Obstacle(objList[a], tempPos, tempBounds, tempRotation));
+			}
+			else
+			{
+				dynamicObstacles[DOindex]->_position.x = traci.vehicle.getPosition(objList[n]).x;
+				dynamicObstacles[DOindex]->_position.y = traci.vehicle.getPosition(objList[n]).y;
+				dynamicObstacles[DOindex]->_position.z = traci.vehicle.getPosition(objList[n]).z;
+			}
+		}
+	}
 	traci.simulationStep();
 }
 
