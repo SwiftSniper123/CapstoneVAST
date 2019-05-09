@@ -379,6 +379,9 @@ void VAST::publishMetrics()
 
 void VAST::Run()
 {
+	ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
+	StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
+
 	timeStep = Double(_VASTConfigMap[TIME_STEP]).value();
 
 	cout << "Run begins" << endl;
@@ -407,7 +410,14 @@ void VAST::Run()
 
 	//open the collision detection module
 	//CreateProcess(
-	system("collisiondetection.exe");
+	//system("collisiondetection.exe");
+	string str = "collisiondetection.exe";
+	cmdArgs = const_cast<char *>(str.c_str());
+
+	//executes the python script from the console to allow the AV to control itself
+	CreateProcess(NULL, cmdArgs,
+		NULL, NULL, FALSE, 0, NULL,
+		NULL, &StartupInfo, &ProcessInfo);
 	
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())

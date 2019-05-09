@@ -120,7 +120,7 @@ int main(int argc, char **argv1)
 
 	vector<ScenarioMetric*> metricTemp;
 	Array metrics = Array(vast->_VASTConfigMap[METRICS]);
-
+	
 	for (int i = 0; i < metrics.arraySize(); i++)
 	{
 		for (int i = 0; i < vast->AVs.size(); i++)

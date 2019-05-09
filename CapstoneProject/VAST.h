@@ -61,5 +61,9 @@ private:
 	std::ofstream AVColDetInit;
 	std::ofstream AVColDetInfo;
 	std::ofstream ObsColDetInfo;
+
+	LPSTR cmdArgs;
+	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
+	STARTUPINFO StartupInfo; //This is an [in] parameter
 };
 
