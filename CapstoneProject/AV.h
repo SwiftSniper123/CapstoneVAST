@@ -5,7 +5,6 @@
 #include <string>
 #include "VType.h"
 #include <map>
-#include "ScenarioMetric.h"
 
 typedef std::map<string, VType*> dataMap;
 
@@ -28,7 +27,6 @@ public:
 	virtual void Update() = 0;
 
 	std::vector<Sensor> sensors;
-	std::vector<ScenarioMetric*> metrics;
 	string name;
 	vector3 position;
 	vector3 bounds;

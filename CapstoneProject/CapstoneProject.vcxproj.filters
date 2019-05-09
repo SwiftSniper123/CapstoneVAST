@@ -42,12 +42,6 @@
     <ClCompile Include="ScenarioMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HighestXValue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HighestZValue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProximitySensor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="storage.cpp">
       <Filter>Open Source</Filter>
+    </ClCompile>
+    <ClCompile Include="LargestDeltaPosition.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,12 +86,6 @@
     <ClInclude Include="ScenarioMetric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HighestXValue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HighestZValue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ProximitySensor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,6 +111,9 @@
       <Filter>Open Source</Filter>
     </ClInclude>
     <ClInclude Include="VType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LargestDeltaPosition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

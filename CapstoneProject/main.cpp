@@ -11,7 +11,8 @@ class GroundAV : public AV
 {
 public:
 	GroundAV() {};
-	GroundAV(string _name, vector3 _position, vector3 _bounds, vector3 _rotation, int _port, string _exe, dataMap _AVMap) : AV(_name, _position, _bounds, _rotation, _port, _exe) 
+	GroundAV(string _name, vector3 _position, vector3 _bounds, vector3 _rotation, int _port, string _exe, dataMap _AVMap) 
+		: AV(_name, _position, _bounds, _rotation, _port, _exe) 
 	{
 		AVMap = _AVMap;
 	};
@@ -69,9 +70,6 @@ private:
 
 int main(int argc, char **argv1)
 {
-	
-	
-
 	// ask user for config file
 	//get file location and name
 	/*string fileName = "VASTConfig.xml";

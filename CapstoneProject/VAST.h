@@ -1,8 +1,10 @@
 #pragma once
 #include "AV.h"
 #include "Environment.h"
+#include "ScenarioMetric.h"
 #include "VASTConstants.h"
 #include "VType.h"
+#include <Windows.h>
 #include <vector>
 #include <map>
 #include <iostream>
@@ -29,6 +31,7 @@ public:
 	~VAST();
 	std::vector<AV*> AVs;
 	Environment* env;
+	std::vector<std::vector<ScenarioMetric*>> metrics;
 
 	dataMap _VASTConfigMap;
 	dataMap _EnvConfig;
@@ -48,15 +51,15 @@ private:
 	double timeStep;
 
 	string RunDataFileName = "RunData.csv";
-	string AVIDsFileName = "AVIDs.csv";
-	string CollisionsFileName = "Collisions.csv";
 	string MetricsFileName = "Metrics.csv";
-	string ColDetInputFileName = "ColDetInput.csv";
+	string AVColDetInitFileName = "AVColDetInit.csv";
+	string AVColDetInfoFileName = "AVColDetInfo.csv";
+	string ObsColDetInfoFileName = "ObsColDetInfo.csv";
 
 	std::ofstream RunData;
-	std::ofstream AVIDs;
-	std::ofstream Collisions;
 	std::ofstream Metrics;
-	std::ofstream ColDetInput;
+	std::ofstream AVColDetInit;
+	std::ofstream AVColDetInfo;
+	std::ofstream ObsColDetInfo;
 };
 
