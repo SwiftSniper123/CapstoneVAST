@@ -414,16 +414,13 @@ void VAST::Run()
 	{
 		//update environment		
 		env->Update();
-
-		for (int i = 0; i < AVs.size(); i++)
-		{
-			AVs[i]->Update();
-		}
 		
 		//output run data each time step
 		//get states of AVs and publish information to files
 		for (int nA = 0; nA < AVs.size(); nA++)
 		{
+			AVs[nA]->Update();
+
 			RunData << "0," << currentSimTime << "," << AVs[nA]->name << "," << AVs[nA]->position.x << "," << AVs[nA]->position.y
 				<< "," << AVs[nA]->position.z << "," << AVs[nA]->rotation.y << endl;
 

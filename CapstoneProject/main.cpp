@@ -3,6 +3,7 @@
 #include <string>
 #include "VAST.h"
 #include "SumoEnvironment.h"
+#include "LargestDeltaPosition.h"
 
 using namespace std;
 
@@ -113,10 +114,25 @@ int main(int argc, char **argv1)
 		avOrientation.z = Vector3(AVMap[AV_ORIENTATION]).z();
 
 		vast->AVs.push_back(new GroundAV(AVMap[AV_NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
-	}
 	
+		
+	}
 
+	vector<ScenarioMetric*> metricTemp;
+	Array metrics = Array(vast->_VASTConfigMap[METRICS]);
 
+	for (int i = 0; i < metrics.arraySize(); i++)
+	{
+		for (int i = 0; i < vast->AVs.size(); i++)
+		{
+			string metric = metrics.at_String(i)->value();
+
+			if (metric == "LargestDeltaPosition")
+			{
+				metricTemp.push_back(new LargestDeltaPosition(vast->AVs[i], vast->env));
+			}
+		}
+	}
 
 	//run VAST
 	vast->Run();

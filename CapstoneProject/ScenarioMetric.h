@@ -9,7 +9,7 @@ class ScenarioMetric
 {
 public:
 	ScenarioMetric();
-	ScenarioMetric(AV *_av, Environment *_env);
+	ScenarioMetric(AV * _av, Environment *_env);
 	~ScenarioMetric();
 	virtual void calculate() = 0;
 	int numAVs;
