@@ -1,6 +1,7 @@
 #pragma once
 #include "AV.h"
 #include "Environment.h"
+#include "ScenarioMetric.h"
 #include "VASTConstants.h"
 #include "VType.h"
 #include <Windows.h>
@@ -30,6 +31,7 @@ public:
 	~VAST();
 	std::vector<AV*> AVs;
 	Environment* env;
+	std::vector<std::vector<ScenarioMetric*>> metrics;
 
 	dataMap _VASTConfigMap;
 	dataMap _EnvConfig;

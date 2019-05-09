@@ -371,8 +371,8 @@ void VAST::publishMetrics()
 	Metrics << "Run_ID, AV_ID, Metric_Name, Metric_Value" << endl;
 
 	for (int n = 0; n < AVs.size(); n++)
-		for (int m = 0; m < AVs[n]->metrics.size(); m++)
-			Metrics << "0, AV_ID," + AVs[n]->metrics[m]->name + "," + std::to_string(AVs[n]->metrics[m]->value) << endl;
+		for (int m = 0; m < metrics.size(); m++)
+			Metrics << "0, AV_ID," + metrics[n][m]->name + "," + std::to_string(metrics[n][m]->value) << endl;
 
 	Metrics.close();
 }
@@ -408,7 +408,7 @@ void VAST::Run()
 	//open the collision detection module
 	//CreateProcess(
 	system("collisiondetection.exe");
-
+	
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
 	{
@@ -433,6 +433,11 @@ void VAST::Run()
 			RunData << "0," << currentSimTime << "," << env.dynamicObstacles[n]->name << "," << AVs[n]->position.x << ","
 			<< AVs[n]->position.y
 			<< "," << AVs[n]->position.z << "," << AVs[n]->rotation.y << endl;*/
+
+		//calculate metrics
+		for (int a = 0; a < AVs.size(); a++)
+			for (int m = 0; m < metrics.size(); m++)
+				metrics[a][m]->calculate();
 
 		//advance current time to the environment time
 		currentSimTime += timeStep;
