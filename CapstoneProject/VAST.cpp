@@ -379,8 +379,9 @@ void VAST::publishMetrics()
 
 void VAST::Run()
 {
+	timeStep = Double(_VASTConfigMap[TIME_STEP]).value();
+
 	cout << "Run begins" << endl;
-	//process for adding AVs into SUMO???
 
 	//open run data file and add headers
 	RunData.open(RunDataFileName);
@@ -392,19 +393,35 @@ void VAST::Run()
 	Collisions.open(CollisionsFileName);
 	Collisions << "Run_ID,Collision_Time,AV_Obj_ID,AV_Position_X,AV_Position_Y,AV_Position_Z,Col_Obj_ID" << endl;
 
+	env->Initialize();
+	for (int i = 0; i < AVs.size(); i++)
+	{
+		AVs[i]->Initialize();
+	}
+
+	env->Connect();
+
+	for (int i = 0; i < AVs.size(); i++)
+	{
+		env->addAV(AVs[i]);
+	}
+	
+
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
 	{
 		//get states of AVs and publish information to files
 		//
 		//
-		currentSimTime += 0.1;
-
+		env->Update();
+		
+		currentSimTime += timeStep;
 		//get states
 
 		//advance current time to the environment time
 	}
 
+	env->Close();
 	//publish metrics
 	publishMetrics();
 
@@ -412,5 +429,5 @@ void VAST::Run()
 	AVIDs.close();
 	Collisions.close();
 
-	cout << "Run ends" << endl;
+	cout << "\nRun ends" << endl;
 }

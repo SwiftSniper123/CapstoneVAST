@@ -16,7 +16,33 @@ public:
 		AVMap = _AVMap;
 	};
 
+	void Initialize()
+	{
+		ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
+		StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
+
+		string str = "python ";
+		str += exe;
+
+		cmdArgs = const_cast<char *>(str.c_str());
+
+		//executes the python script from the console to allow the AV to control itself
+		CreateProcess(NULL, cmdArgs,
+			NULL, NULL, FALSE, 0, NULL,
+			NULL, &StartupInfo, &ProcessInfo);
+	}
+
+	void Update()
+	{
+
+	}
+
 	dataMap AVMap;
+
+private:
+	LPSTR cmdArgs;
+	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
+	STARTUPINFO StartupInfo; //This is an [in] parameter
 };
 
 //Environment example
@@ -61,7 +87,13 @@ int main(int argc, char **argv1)
 
 	vast->Parse(fileName);
 	dataMap envMap = vast->_EnvConfig;
-	vast->env = new SumoEnvironment();
+
+	vector3 envBound;
+	envBound.x = Vector3(envMap[ENV_BOUNDS]).x();
+	envBound.y = Vector3(envMap[ENV_BOUNDS]).y();
+	envBound.z = Vector3(envMap[ENV_BOUNDS]).z();
+
+	vast->env = new SumoEnvironment(envMap[CONFIG_LOCATION]->s_value(),envMap[EXE_LOCATION]->s_value(),Integer(envMap[ENV_OBSTACLE_PORT]).value(),envBound,vast->_EnvRun_Data);
 
 	for (int i = 0; i < vast->_AVConfigs.size(); i++)
 	{
@@ -90,11 +122,12 @@ int main(int argc, char **argv1)
 	//run VAST
 	vast->Run();
 
-	cin.ignore();
+	system("PAUSE");
 
 
 	//launch post-sim executable if the post-sim box is checked
 	//if (vast->_VASTConfigMap[VIZ])
+	
 	if (vast->_VASTConfigMap[VIZ])
 		system("TestAutonomousVehicleDemo.exe");
 

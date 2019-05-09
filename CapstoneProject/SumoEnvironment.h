@@ -18,7 +18,13 @@ public:
 	dataMap envMap;
 
 	//Opens the Sumo Environment with the file location
-	void openEnvironment();
+	void Initialize();
+
+	void Update();
+
+	void Connect();
+
+	void Close();
 
 	//Gets the information from Sumo via traci commands
 	void getMapInformation();
@@ -36,17 +42,13 @@ public:
 	void addAV(AV *_AV);
 
 private:
-	string fileLocation;
-	int random; //Replace with function for setting the seed?
-	string seed;
-	string SUMOexeLocation;
-	Integer port;
-	vector<string> AVid;
+	
+	vector<string> AVids;
 	TraCIAPI traci;
 	dataMap currentData;
 	dataMap runData;
 	dataMap configData;
-	vector3 bounds;
+	string seed = "r";
 
 	LPSTR cmdArgs;
 	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter

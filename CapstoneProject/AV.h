@@ -15,6 +15,7 @@ public:
 	AV();
 	AV(string _name, vector3 _position, vector3 _bounds, vector3 _rotation, int _port, string _exe)
 	{
+		name = _name;
 		position = _position;
 		bounds = _bounds;
 		rotation = _rotation;
@@ -22,13 +23,13 @@ public:
 		exe = _exe;
 	}
 	~AV();
-	void update(vector3 _position, vector3 _rotation)
-	{
-		position = _position;
-		rotation = _rotation;
-	}
+	
+	virtual void Initialize() = 0;
+	virtual void Update() = 0;
+
 	std::vector<Sensor> sensors;
 	std::vector<ScenarioMetric*> metrics;
+	string name;
 	vector3 position;
 	vector3 bounds;
 	vector3 rotation;

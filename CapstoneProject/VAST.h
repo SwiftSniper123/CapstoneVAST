@@ -45,6 +45,7 @@ public:
 private:
 	void fillMap(string currentModule, dataMap &run_Data, string type, string key, string value);
 	double currentSimTime = 0;
+	double timeStep;
 
 	string RunDataFileName = "RunData.csv";
 	string AVIDsFileName = "AVIDs.csv";

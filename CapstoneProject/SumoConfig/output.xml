@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/09/19 03:05:33 by Eclipse SUMO GUI Version 1.1.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:/Users/jaron/source/repos/CapstoneVAST/CapstoneProject/SumoConfig/my_net.net.xml"/>
+        <route-files value="C:/Users/jaron/source/repos/CapstoneVAST/CapstoneProject/SumoConfig/my_route.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="C:/Users/jaron/source/repos/CapstoneVAST/CapstoneProject/SumoConfig/output.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <traci_server>
+        <remote-port value="1337"/>
+        <num-clients value="2"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="8431"/>
+    </random_number>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="0.10"/>
+    <timestep time="0.20"/>
+    <timestep time="0.30"/>
+    <timestep time="0.40"/>
+    <timestep time="0.50"/>
+    <timestep time="0.60"/>
+    <timestep time="0.70"/>
+    <timestep time="0.80"/>
+    <timestep time="0.90"/>
+    <timestep time="1.00"/>
+    <timestep time="1.10"/>
+    <timestep time="1.20"/>
+    <timestep time="1.30"/>
+    <timestep time="1.40"/>
+    <timestep time="1.50"/>
+    <timestep time="1.60"/>
+    <timestep time="1.70"/>
+    <timestep time="1.80"/>
+    <timestep time="1.90"/>
+    <timestep time="2.00"/>
+    <timestep time="2.10"/>
+    <timestep time="2.20"/>
+    <timestep time="2.30"/>
+    <timestep time="2.40"/>
+    <timestep time="2.50"/>
+    <timestep time="2.60"/>
+    <timestep time="2.70"/>
+    <timestep time="2.80"/>
+    <timestep time="2.90"/>
+    <timestep time="3.00"/>
+    <timestep time="3.10"/>
+    <timestep time="3.20"/>
+    <timestep time="3.30"/>
+    <timestep time="3.40"/>
+    <timestep time="3.50"/>
+    <timestep time="3.60"/>
+    <timestep time="3.70"/>
+    <timestep time="3.80"/>
+    <timestep time="3.90"/>
+    <timestep time="4.00"/>
+    <timestep time="4.10"/>
+    <timestep time="4.20"/>
+    <timestep time="4.30"/>
+    <timestep time="4.40"/>
+    <timestep time="4.50"/>
+    <timestep time="4.60"/>
+    <timestep time="4.70"/>
+    <timestep time="4.80"/>
+    <timestep time="4.90"/>
+    <timestep time="5.00"/>
+    <timestep time="5.10"/>
+    <timestep time="5.20"/>
+    <timestep time="5.30"/>
+    <timestep time="5.40"/>
+    <timestep time="5.50"/>
+    <timestep time="5.60"/>
+    <timestep time="5.70"/>
+    <timestep time="5.80"/>
+    <timestep time="5.90"/>
+    <timestep time="6.00"/>
+    <timestep time="6.10"/>
+    <timestep time="6.20"/>
+    <timestep time="6.30"/>
+    <timestep time="6.40"/>
+    <timestep time="6.50"/>
+    <timestep time="6.60"/>
+    <timestep time="6.70"/>
+    <timestep time="6.80"/>
+    <timestep time="6.90"/>
+    <timestep time="7.00"/>
+    <timestep time="7.10"/>
+    <timestep time="7.20"/>
+    <timestep time="7.30"/>
+    <timestep time="7.40"/>
+    <timestep time="7.50"/>
+    <timestep time="7.60"/>
+    <timestep time="7.70"/>
+    <timestep time="7.80"/>
+    <timestep time="7.90"/>
+    <timestep time="8.00"/>
+    <timestep time="8.10"/>
+    <timestep time="8.20"/>
+    <timestep time="8.30"/>
+    <timestep time="8.40"/>
+    <timestep time="8.50"/>
+    <timestep time="8.60"/>
+    <timestep time="8.70"/>
+    <timestep time="8.80"/>
+    <timestep time="8.90"/>
+    <timestep time="9.00"/>
+    <timestep time="9.10"/>
+    <timestep time="9.20"/>
+    <timestep time="9.30"/>
+    <timestep time="9.40"/>
+    <timestep time="9.50"/>
+    <timestep time="9.60"/>
+    <timestep time="9.70"/>
+    <timestep time="9.80"/>
+    <timestep time="9.90"/>
+    <timestep time="10.00">
+        <edge id="1to2">
+            <lane id="1to2_0">
+                <vehicle id="veh0" pos="12.10" speed="0.00"/>
+            </lane>
+            <lane id="1to2_1"/>
+            <lane id="1to2_2"/>
+        </edge>
+    </timestep>
+    <timestep time="10.10">
+        <edge id="1to2">
+            <lane id="1to2_0">
+                <vehicle id="veh0" pos="12.11" speed="0.10"/>
+            </lane>
+            <lane id="1to2_1"/>
+            <lane id="1to2_2"/>
+        </edge>
+    </timestep>
+</netstate>

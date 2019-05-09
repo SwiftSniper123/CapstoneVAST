@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 
 using std::string;
@@ -13,4 +12,5 @@ public:
 	int numAVs;
 	string name;
 	double value;
+	void Test();
 };
