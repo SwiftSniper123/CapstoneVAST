@@ -42,7 +42,7 @@ void SumoEnvironment::Update()
 	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
 	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);
 
-	std::vector<string> objList = traci.vehicle.getIDList;
+	std::vector<string> objList = traci.vehicle.getIDList();
 
 	for (int n = 0; n < objList.size(); n++)
 	{
