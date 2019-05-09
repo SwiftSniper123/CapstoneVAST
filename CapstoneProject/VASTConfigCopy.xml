@@ -55,7 +55,7 @@
                     <name>max_run_time</name>
                 </key>
                 <value>
-                    <name>10</name>
+                    <name>20</name>
                 </value>
             </pair>
             <pair type="mandatory">

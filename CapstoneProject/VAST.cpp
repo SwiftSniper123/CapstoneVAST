@@ -385,7 +385,7 @@ void VAST::Run()
 
 	//open run data file and add header line
 	RunData.open(RunDataFileName, std::ios_base::app);
-	RunData << "Run_ID,Time,Obj_X,Obj_Y,Obj_Z,Obj_Angle,Obj_Speed" << endl;
+	RunData << "Run_ID,Time,Obj_ID,Obj_X,Obj_Y,Obj_Z,Obj_Angle" << endl;
 
 	env->Initialize();
 	for (int i = 0; i < AVs.size(); i++)
@@ -396,7 +396,6 @@ void VAST::Run()
 	env->Connect();
 	
 	AVColDetInit.open(AVColDetInitFileName, std::ios_base::app);
-	AVColDetInit << "Run_ID,Obj_ID" << endl;
 	for (int i = 0; i < AVs.size(); i++)
 	{
 		env->addAV(AVs[i]);
@@ -431,10 +430,11 @@ void VAST::Run()
 			AVColDetInfo.close();
 		}
 		//add obstacle information
-		/*for (int n = 0; n < env->dynamicObstacles.size(); n++)
-			RunData << "0," << currentSimTime << "," << env.dynamicObstacles[n]->name << "," << AVs[n]->position.x << ","
-			<< AVs[n]->position.y
-			<< "," << AVs[n]->position.z << "," << AVs[n]->rotation.y << endl;*/
+		for (int n = 0; n < env->dynamicObstacles.size(); n++)
+		{
+			RunData << "0," << currentSimTime << "," << env->dynamicObstacles[n]->_name << "," << env->dynamicObstacles[n]->_position.x << ","
+				<< env->dynamicObstacles[n]->_position.y << "," << env->dynamicObstacles[n]->_position.z << "," << "0" << endl;
+		}
 
 		//calculate metrics
 		for (int a = 0; a < AVs.size(); a++)

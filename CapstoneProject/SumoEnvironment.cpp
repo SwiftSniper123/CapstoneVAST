@@ -42,63 +42,39 @@ void SumoEnvironment::Update()
 	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
 	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);
 
-	std::vector<string> objList = traci.vehicle.getIDList();
+	std::vector<string> objList = traci.simulation.getLoadedIDList();
 
 	for (int n = 0; n < objList.size(); n++)
 	{
+		bool instObj = true;
 		for (int a = 0; a < AVs.size(); a++)
 		{
-			bool instObjAV = true;
-			bool instObjDO = true;
-			int DOindex = 0;
-
 			if (objList[n] == AVs[a]->name)
-				instObjAV = false;
-
-
-			for (int d = 0; d < dynamicObstacles.size(); d++)
-				if (dynamicObstacles[d]->_name == objList[n])
-				{
-					instObjDO = false;
-					DOindex = d;
-				}
-
-			if (instObjAV && instObjDO)
-			{
-				vector3 tempPos;
-				tempPos.x = traci.vehicle.getPosition(objList[n]).x;
-				tempPos.y = traci.vehicle.getPosition(objList[n]).y;
-				tempPos.z = traci.vehicle.getPosition(objList[n]).z;
-
-				vector3 tempBounds;
-				tempBounds.x = 3;
-				tempBounds.y = 2;
-				tempBounds.z = 2;
-
-				vector3 tempRotation;
-				tempRotation.x = 0;
-				tempRotation.y = traci.vehicle.getAngle(objList[n]);
-				tempRotation.z = 0;
-
-				dynamicObstacles.push_back(new Obstacle(objList[a], tempPos, tempBounds, tempRotation));
-			}
-			else
-			{
-				if (instObjAV == false)
-				{
-					AVs[a]->position.x = traci.vehicle.getPosition(objList[n]).x;
-					AVs[a]->position.y = traci.vehicle.getPosition(objList[n]).y;
-					AVs[a]->position.z = traci.vehicle.getPosition(objList[n]).z;
-				}
-
-				if (instObjDO == false)
-				{
-					dynamicObstacles[DOindex]->_position.x = traci.vehicle.getPosition(objList[n]).x;
-					dynamicObstacles[DOindex]->_position.y = traci.vehicle.getPosition(objList[n]).y;
-					dynamicObstacles[DOindex]->_position.z = traci.vehicle.getPosition(objList[n]).z;
-				}
-			}
+				instObj = false;
 		}
+
+
+		if (instObj)
+		{
+			vector3 tempPos;
+			tempPos.x = traci.vehicle.getPosition(objList[n]).x;
+			tempPos.y = 0;
+			tempPos.z = traci.vehicle.getPosition(objList[n]).y;
+
+			vector3 tempBounds;
+			tempBounds.x = 3;
+			tempBounds.y = 2;
+			tempBounds.z = 2;
+
+			vector3 tempRotation;
+			tempRotation.x = 0;
+			tempRotation.y = traci.vehicle.getAngle(objList[n]);
+			tempRotation.z = 0;
+
+			dynamicObstacles.push_back(new Obstacle(objList[n], tempPos, tempBounds, tempRotation));
+		}
+
+		objList.clear();
 	}
 	traci.simulationStep();
 }
