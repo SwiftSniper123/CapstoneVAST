@@ -36,54 +36,51 @@ private:
 	string dynamicObstacleConfig;
 };
 
-//class SumoEnvironment : public Environment
-//{
-//public:
-//	SumoEnvironment(dataMap envConfigData, dataMap envRunData);
-//
-//	SumoEnvironment(string configFileLocation, string SUMOexeLocation, Integer port, Vector3 bounds);
-//
-//	/* Inherited Function from VComponent.  Called by a component
-//	external to the Obstacle in order to update data important to the Obstacle.
-//	time		timestamp for the update
-//	updateMap	data that changed for this update*/
-//	virtual void update(timestamp t, dataMap dataMap);
-//
-//	//Opens the Sumo Environment with the file location
-//	void openEnvironment();
-//
-//	//Gets the information from Sumo via traci commands
-//	void getMapInformation();
-//
-//	//sends the new command to the AV in sumo if this is required
-//	void changeAVCommand();
-//
-//	//called by the update function to run all of the functions of the child classes
-//	virtual dataMap callUpdateFunctions();
-//
-//	void stopReplication(bool another, string runID);
-//
-//	void setSeed(string seed);
-//
-//	void addAV(AV *AV);
-//
-//private:
-//	string _fileLocation;
-//	int random; //Replace with function for setting the seed?
-//	string _seed;
-//	string _SUMOexeLocation;
-//	Integer _port;
-//	vector<string> _AVid;
-//	TraCIAPI traci;
-//	dataMap currentData;
-//	dataMap _runData;
-//	dataMap _configData;
-//	Vector3 _bounds;
-//
-//	LPWSTR cmdArgs;
-//	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
-//	STARTUPINFO StartupInfo; //This is an [in] parameter
-//};
+class SumoEnvironment : public Environment
+{
+public:
+	SumoEnvironment(string _configFileLocation, string _SUMOexeLocation, int _port, vector3 _bounds, dataMap _envMap) : Environment(_configFileLocation, _SUMOexeLocation, _port, _bounds)
+	{
+		envMap = _envMap;
+	}
+
+	dataMap envMap;
+
+	//Opens the Sumo Environment with the file location
+	void openEnvironment();
+
+	//Gets the information from Sumo via traci commands
+	void getMapInformation();
+
+	//sends the new command to the AV in sumo if this is required
+	void changeAVCommand();
+
+	//called by the update function to run all of the functions of the child classes
+	virtual dataMap callUpdateFunctions();
+
+	void stopReplication(bool another, string runID);
+
+	void setSeed(string seed);
+
+	void addAV(AV *AV);
+
+private:
+	string _fileLocation;
+	int random; //Replace with function for setting the seed?
+	string _seed;
+	string _SUMOexeLocation;
+	Integer _port;
+	vector<string> _AVid;
+	TraCIAPI traci;
+	dataMap currentData;
+	dataMap _runData;
+	dataMap _configData;
+	Vector3 _bounds;
+
+	LPWSTR cmdArgs;
+	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
+	STARTUPINFO StartupInfo; //This is an [in] parameter
+};
 
 
 
@@ -128,7 +125,7 @@ int main(int argc, char **argv1)
 		avOrientation.y = Vector3(AVMap[AV_ORIENTATION]).y();
 		avOrientation.z = Vector3(AVMap[AV_ORIENTATION]).z();
 
-		vast->AVs.push_back(new GroundAV(AVMap[NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
+		vast->AVs.push_back(new GroundAV(AVMap[AV_NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
 	}
 	
 

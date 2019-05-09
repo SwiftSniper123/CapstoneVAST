@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Open Source">
+      <UniqueIdentifier>{d79326e8-dc4c-43e7-abef-dd995e343086}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +48,12 @@
     <ClCompile Include="HighestYValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SumoEnvironment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TraCIAPI.cpp">
+      <Filter>Open Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Environment.h">
@@ -76,6 +85,21 @@
     </ClInclude>
     <ClInclude Include="HighestYValue.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SumoEnvironment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Open Source</Filter>
+    </ClInclude>
+    <ClInclude Include="TraCIAPI.h">
+      <Filter>Open Source</Filter>
+    </ClInclude>
+    <ClInclude Include="TraCIConstants.h">
+      <Filter>Open Source</Filter>
+    </ClInclude>
+    <ClInclude Include="TraCIDefs.h">
+      <Filter>Open Source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "AverageAcceleration.h"
 
 
-
+/*
 AverageAcceleration::AverageAcceleration()
 {
 	numDataPoints = 0;
@@ -20,4 +20,4 @@ void AverageAcceleration::calculate()
 	{
 		_VASTObject->AVs[n]->
 	}
-}
+}*/

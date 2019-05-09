@@ -128,17 +128,24 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ScenarioMetric.cpp" />
     <ClCompile Include="Sensor.cpp" />
+    <ClCompile Include="SumoEnvironment.cpp" />
+    <ClCompile Include="TraCIAPI.cpp" />
     <ClCompile Include="VAST.cpp" />
     <ClCompile Include="VASTConstants.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AV.h" />
     <ClInclude Include="AverageAcceleration.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="HighestYValue.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ScenarioMetric.h" />
     <ClInclude Include="Sensor.h" />
+    <ClInclude Include="SumoEnvironment.h" />
+    <ClInclude Include="TraCIAPI.h" />
+    <ClInclude Include="TraCIConstants.h" />
+    <ClInclude Include="TraCIDefs.h" />
     <ClInclude Include="VAST.h" />
     <ClInclude Include="VASTConstants.h" />
     <ClInclude Include="vector3.h" />
