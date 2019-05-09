@@ -37,7 +37,7 @@ void SumoEnvironment::Update()
 	
 	//cout << "\nUpdating Environment Data\n";
 	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVids[0]).getString();
-	std::cout << "\nAV vel: " << traci.vehicle.getSpeed(AVids[0]);
+	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVids[0]);
 	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVids[0]);
 	traci.simulationStep();
 }
