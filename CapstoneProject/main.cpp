@@ -68,9 +68,6 @@ private:
 
 int main(int argc, char **argv1)
 {
-	
-	
-
 	// ask user for config file
 	//get file location and name
 	/*string fileName = "VASTConfig.xml";

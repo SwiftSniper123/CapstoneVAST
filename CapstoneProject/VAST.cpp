@@ -383,15 +383,9 @@ void VAST::Run()
 
 	cout << "Run begins" << endl;
 
-	//open run data file and add headers
-	RunData.open(RunDataFileName);
+	//open run data file and add header line
+	RunData.open(RunDataFileName, std::ios_base::app);
 	RunData << "Run_ID,Time,Obj_X,Obj_Y,Obj_Z,Obj_Angle,Obj_Speed" << endl;
-
-	AVIDs.open(AVIDsFileName);
-	AVIDs << "Run_ID,Obj_ID" << endl;
-
-	Collisions.open(CollisionsFileName);
-	Collisions << "Run_ID,Collision_Time,AV_Obj_ID,AV_Position_X,AV_Position_Y,AV_Position_Z,Col_Obj_ID" << endl;
 
 	env->Initialize();
 	for (int i = 0; i < AVs.size(); i++)
@@ -400,25 +394,48 @@ void VAST::Run()
 	}
 
 	env->Connect();
-
+	
+	AVColDetInit.open(AVColDetInitFileName, std::ios_base::app);
+	AVColDetInit << "Run_ID,Obj_ID" << endl;
 	for (int i = 0; i < AVs.size(); i++)
 	{
 		env->addAV(AVs[i]);
+		AVColDetInit << "0," << AVs[i]->name << endl; //write the AV initialization information
 	}
-	
+
+	AVColDetInit.close();
+
+	//open the collision detection module
+	//CreateProcess(
+	system("CollisionDetectionExe\collisiondetection.exe");
 
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
 	{
-		//get states of AVs and publish information to files
-		//
-		//
+		//update environment		
 		env->Update();
 		
-		currentSimTime += timeStep;
-		//get states
+		//output run data each time step
+		//get states of AVs and publish information to files
+		for (int nA = 0; nA < AVs.size(); nA++)
+		{
+			RunData << "0," << currentSimTime << "," << AVs[nA]->name << "," << AVs[nA]->position.x << "," << AVs[nA]->position.y
+				<< "," << AVs[nA]->position.z << "," << AVs[nA]->rotation.y << endl;
+
+			//overwrite existing data point
+			AVColDetInfo.open(AVColDetInfoFileName);
+			AVColDetInfo << "0," << currentSimTime << "," << AVs[nA]->name << "," << AVs[nA]->position.x << "," << AVs[nA]->position.y
+				<< "," << AVs[nA]->position.z << "," << AVs[nA]->rotation.y << endl;
+			AVColDetInfo.close();
+		}
+		//add obstacle information
+		/*for (int n = 0; n < env->dynamicObstacles.size(); n++)
+			RunData << "0," << currentSimTime << "," << env.dynamicObstacles[n]->name << "," << AVs[n]->position.x << ","
+			<< AVs[n]->position.y
+			<< "," << AVs[n]->position.z << "," << AVs[n]->rotation.y << endl;*/
 
 		//advance current time to the environment time
+		currentSimTime += timeStep;
 	}
 
 	env->Close();
@@ -426,8 +443,6 @@ void VAST::Run()
 	publishMetrics();
 
 	RunData.close();
-	AVIDs.close();
-	Collisions.close();
 
 	cout << "\nRun ends" << endl;
 }
