@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/09/19 03:35:15 by Eclipse SUMO GUI Version 1.1.0
+<!-- generated on 05/09/19 13:27:54 by Eclipse SUMO GUI Version 1.1.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,11 +20,10 @@
 
     <traci_server>
         <remote-port value="1337"/>
-        <num-clients value="2"/>
     </traci_server>
 
     <random_number>
-        <seed value="4251"/>
+        <seed value="2071"/>
     </random_number>
 
     <gui_only>

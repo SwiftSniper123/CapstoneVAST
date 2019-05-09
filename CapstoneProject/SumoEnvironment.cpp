@@ -36,10 +36,11 @@ void SumoEnvironment::Update()
 	//currentData[TARGET_VELOCITY] = new Double(1.0);
 	
 	//cout << "\nUpdating Environment Data\n";
-	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVids[0]).getString();
-	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVids[0]);
-	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVids[0]);
+	traci.vehicle.moveToXY(AVs[0]->name, "1to2", 0, AVs[0]->position.x, AVs[0]->position.y, 90, 2);
 
+	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVs[0]->name).getString();
+	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
+	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);
 	traci.simulationStep();
 }
 
@@ -56,17 +57,17 @@ void SumoEnvironment::Initialize()
 
 		int seed = rand() % 10000; //Generates a random seed for Sumo
 		
-		str = exeLocation + " -c " + configFileLocation + " --num-clients 2 --remote-port 1337 --seed " + std::to_string(seed);
+		str = exeLocation + " -c " + configFileLocation + " --remote-port 1337 --seed " + std::to_string(seed);
 
 	}
 
 	else if (!seed.empty())
 	{
-		str = exeLocation + " -c " + configFileLocation + " --num-clients 2 --remote-port 1337 --seed " + seed;
+		str = exeLocation + " -c " + configFileLocation + " --remote-port 1337 --seed " + seed;
 	}
 
 	else
-		str = exeLocation + " -c " + exeLocation + " --num-clients 2 --remote-port 1337";
+		str = exeLocation + " -c " + exeLocation + " --remote-port 1337";
 
 	//cmdArgs = ConvertString(str);
 	cmdArgs = const_cast<char *>(str.c_str());
@@ -81,9 +82,8 @@ void SumoEnvironment::Initialize()
 
 void SumoEnvironment::Connect()
 {
-	
 	traci.connect("localhost", 1337);
-	traci.setOrder(1);
+	//traci.setOrder(1);
 	//traci.close(); // why are we closing here??
 	std::cout << "\nConnecting to SUMO.\n";
 	//this->getEventTree()->start();
@@ -155,8 +155,8 @@ void SumoEnvironment::setSeed(string _seed)
 
 void SumoEnvironment::addAV(AV *AV)
 {
-	AVids.push_back(AV->name);
-	string pos = std::to_string(AV->position.x) + "," + std::to_string(AV->position.y) + "," + std::to_string(AV->position.z);
+	AVs.push_back(AV);
+	//string pos = std::to_string(AV->position.x) + "," + std::to_string(AV->position.y) + "," + std::to_string(AV->position.z);
 	traci.vehicle.add(AV->name, "route0", "Car", "0");
 	std::cout << "\nvehicle position: " << traci.vehicle.getPosition(AV->name).getString();
 }

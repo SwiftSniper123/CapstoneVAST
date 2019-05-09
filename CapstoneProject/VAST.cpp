@@ -390,7 +390,7 @@ void VAST::Run()
 	env->Initialize();
 	for (int i = 0; i < AVs.size(); i++)
 	{
-		AVs[i]->Initialize();
+		//AVs[i]->Initialize();
 	}
 
 	env->Connect();
@@ -414,6 +414,11 @@ void VAST::Run()
 	{
 		//update environment		
 		env->Update();
+
+		for (int i = 0; i < AVs.size(); i++)
+		{
+			AVs[i]->Update();
+		}
 		
 		//output run data each time step
 		//get states of AVs and publish information to files
