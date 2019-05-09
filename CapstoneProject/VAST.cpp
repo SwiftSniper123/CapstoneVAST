@@ -407,7 +407,7 @@ void VAST::Run()
 
 	//open the collision detection module
 	//CreateProcess(
-	system("collisiondetection.exe");
+	//system("collisiondetection.exe");
 	
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
