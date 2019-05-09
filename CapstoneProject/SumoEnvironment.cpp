@@ -46,22 +46,24 @@ void SumoEnvironment::Update()
 
 	for (int n = 0; n < objList.size(); n++)
 	{
-		bool instObj = true;
-		int DOindex = 0;
 		for (int a = 0; a < AVs.size(); a++)
 		{
-			if (objList[n] == AVs[a]->name) //if AV, break loop
-				instObj = false;
+			bool instObjAV = true;
+			bool instObjDO = true;
+			int DOindex = 0;
+
+			if (objList[n] == AVs[a]->name)
+				instObjAV = false;
 
 
 			for (int d = 0; d < dynamicObstacles.size(); d++)
 				if (dynamicObstacles[d]->_name == objList[n])
 				{
-					instObj = false;
+					instObjDO = false;
 					DOindex = d;
 				}
 
-			if (instObj)
+			if (instObjAV && instObjDO)
 			{
 				vector3 tempPos;
 				tempPos.x = traci.vehicle.getPosition(objList[n]).x;
@@ -82,9 +84,19 @@ void SumoEnvironment::Update()
 			}
 			else
 			{
-				dynamicObstacles[DOindex]->_position.x = traci.vehicle.getPosition(objList[n]).x;
-				dynamicObstacles[DOindex]->_position.y = traci.vehicle.getPosition(objList[n]).y;
-				dynamicObstacles[DOindex]->_position.z = traci.vehicle.getPosition(objList[n]).z;
+				if (instObjAV == false)
+				{
+					AVs[a]->position.x = traci.vehicle.getPosition(objList[n]).x;
+					AVs[a]->position.y = traci.vehicle.getPosition(objList[n]).y;
+					AVs[a]->position.z = traci.vehicle.getPosition(objList[n]).z;
+				}
+
+				if (instObjDO == false)
+				{
+					dynamicObstacles[DOindex]->_position.x = traci.vehicle.getPosition(objList[n]).x;
+					dynamicObstacles[DOindex]->_position.y = traci.vehicle.getPosition(objList[n]).y;
+					dynamicObstacles[DOindex]->_position.z = traci.vehicle.getPosition(objList[n]).z;
+				}
 			}
 		}
 	}
