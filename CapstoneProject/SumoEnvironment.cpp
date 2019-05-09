@@ -36,9 +36,9 @@ void SumoEnvironment::Update()
 	//currentData[TARGET_VELOCITY] = new Double(1.0);
 	
 	//cout << "\nUpdating Environment Data\n";
-	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVids[0]).getString();
-	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVids[0]);
-	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVids[0]);
+	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVs[0]->name).getString();
+	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
+	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);
 	traci.simulationStep();
 }
 
@@ -154,8 +154,8 @@ void SumoEnvironment::setSeed(string _seed)
 
 void SumoEnvironment::addAV(AV *AV)
 {
-	AVids.push_back(AV->name);
-	string pos = std::to_string(AV->position.x) + "," + std::to_string(AV->position.y) + "," + std::to_string(AV->position.z);
+	AVs.push_back(AV);
+	//string pos = std::to_string(AV->position.x) + "," + std::to_string(AV->position.y) + "," + std::to_string(AV->position.z);
 	traci.vehicle.add(AV->name, "route0", "Car", "0");
 	std::cout << "\nvehicle position: " << traci.vehicle.getPosition(AV->name).getString();
 }

@@ -43,7 +43,7 @@ public:
 
 private:
 	
-	vector<string> AVids;
+	vector<AV*> AVs;
 	TraCIAPI traci;
 	dataMap currentData;
 	dataMap runData;
