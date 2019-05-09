@@ -42,10 +42,13 @@
     <ClCompile Include="ScenarioMetric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AverageAcceleration.cpp">
+    <ClCompile Include="HighestXValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HighestYValue.cpp">
+    <ClCompile Include="HighestZValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProximitySensor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SumoEnvironment.cpp">
@@ -80,10 +83,13 @@
     <ClInclude Include="ScenarioMetric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AverageAcceleration.h">
+    <ClInclude Include="HighestXValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HighestYValue.h">
+    <ClInclude Include="HighestZValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProximitySensor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SumoEnvironment.h">

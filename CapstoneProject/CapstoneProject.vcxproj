@@ -121,11 +121,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AV.cpp" />
-    <ClCompile Include="AverageAcceleration.cpp" />
     <ClCompile Include="Environment.cpp" />
-    <ClCompile Include="HighestYValue.cpp" />
+    <ClCompile Include="HighestXValue.cpp" />
+    <ClCompile Include="HighestZValue.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ProximitySensor.cpp" />
     <ClCompile Include="ScenarioMetric.cpp" />
     <ClCompile Include="Sensor.cpp" />
     <ClCompile Include="SumoEnvironment.cpp" />
@@ -136,10 +137,11 @@
   <ItemGroup>
     <ClInclude Include="AV.h" />
     <ClInclude Include="AverageAcceleration.h" />
-    <ClInclude Include="config.h" />
     <ClInclude Include="Environment.h" />
-    <ClInclude Include="HighestYValue.h" />
+    <ClInclude Include="HighestXValue.h" />
+    <ClInclude Include="HighestZValue.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ProximitySensor.h" />
     <ClInclude Include="ScenarioMetric.h" />
     <ClInclude Include="Sensor.h" />
     <ClInclude Include="SumoEnvironment.h" />

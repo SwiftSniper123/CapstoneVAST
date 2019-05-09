@@ -2,7 +2,7 @@
 
 VAST::VAST()
 {
-	_VASTConfigMap = new dataMap();
+	//_VASTConfigMap = new dataMap();
 }
 
 
@@ -87,42 +87,42 @@ void VAST::Parse(string _file)
 										if (_currentKey == OUTPUT_FILE)
 										{
 											String *v = new String(key.get<string>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == VIZ)
 										{
 											Boolean *v = new Boolean(key.get<bool>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == TIME_RATIO)
 										{
 											Double *v = new Double(key.get<double>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == TIME_STEP)
 										{
 											Double *v = new Double(key.get<double>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == NUM_REPLCATION)
 										{
 											Integer *v = new Integer(key.get<int>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == SEEDS)
 										{
 											Array *v = new Array(key.get<string>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == MAX_RUN_TIME)
 										{
 											Double *v = new Double(key.get<double>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 										else if (_currentKey == METRICS)
 										{
 											Array *v = new Array(key.get<string>(NAME));
-											_VASTConfigMap->insert(namedData(_currentKey, v));
+											_VASTConfigMap.insert(namedData(_currentKey, v));
 										}
 									}
 
@@ -363,4 +363,53 @@ void VAST::fillMap(string currentModule, dataMap &run_Data, string type, string 
 	{
 		run_Data.insert(namedData(key, v));
 	}
+}
+
+void VAST::publishMetrics()
+{
+	Metrics.open(MetricsFileName);
+	Metrics << "Run_ID, AV_ID, Metric_Name, Metric_Value" << endl;
+
+	for (int n = 0; n < AVs.size(); n++)
+		for (int m = 0; m < AVs[n]->metrics.size(); m++)
+			Metrics << "0, AV_ID," + AVs[n]->metrics[m]->name + "," + std::to_string(AVs[n]->metrics[m]->value) << endl;
+
+	Metrics.close();
+}
+
+void VAST::Run()
+{
+	cout << "Run begins" << endl;
+	//process for adding AVs into SUMO???
+
+	//open run data file and add headers
+	RunData.open(RunDataFileName);
+	RunData << "Run_ID,Time,Obj_X,Obj_Y,Obj_Z,Obj_Angle,Obj_Speed" << endl;
+
+	AVIDs.open(AVIDsFileName);
+	AVIDs << "Run_ID,Obj_ID" << endl;
+
+	Collisions.open(CollisionsFileName);
+	Collisions << "Run_ID,Collision_Time,AV_Obj_ID,AV_Position_X,AV_Position_Y,AV_Position_Z,Col_Obj_ID" << endl;
+
+	//execute the program until the max run time is achieved
+	while (currentSimTime < _VASTConfigMap[MAX_RUN_TIME]->s_value)
+	{
+		//get states of AVs and publish information to files
+		//
+		//
+
+		//get states
+
+		//advance current time to the environment time
+	}
+
+	//publish metrics
+	publishMetrics();
+
+	RunData.close();
+	AVIDs.close();
+	Collisions.close();
+
+	cout << "Run ends" << endl;
 }

@@ -129,14 +129,16 @@ int main(int argc, char **argv1)
 	}
 	
 
-	//GroundAV *test = new GroundAV();
+	//run VAST
+	vast->Run();
 
-
-	
-	//make example AVs and Environment (preferably from config file)
-
-	
 	cin.ignore();
+
+
+	//launch post-sim executable if the post-sim box is checked
+	//if (vast->_VASTConfigMap[VIZ])
+	if (vast->_VASTConfigMap[VIZ])
+		system("TestAutonomousVehicleDemo.exe");
 
 	return 0;
 }

@@ -27,13 +27,14 @@ public:
 		rotation = _rotation;
 	}
 	std::vector<Sensor> sensors;
+	std::vector<ScenarioMetric*> metrics;
 	vector3 position;
 	vector3 bounds;
 	vector3 rotation;
 	int port;
 	string exe;
-	void run();
-	void writeToDatabase();
+	void runScript();
+
 private:
 
 };

@@ -9,4 +9,6 @@ public:
 	virtual void calculate() = 0;
 	int numAVs;
 	VAST *_VASTObject;
+	string name;
+	double value;
 };
