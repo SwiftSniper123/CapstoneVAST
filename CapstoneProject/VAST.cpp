@@ -323,7 +323,7 @@ void VAST::Run()
 
 	timeStep = Double(_VASTConfigMap[TIME_STEP]).value();
 
-	cout << "\nBeginning Run..." << endl;
+	cout << "\nBeginning Run...\n-------------------------------------------------------------------" << endl;
 
 	RunData.open(RunDataFileName, std::ios_base::out);
 	RunData << "Run_ID,Time,Obj_ID,Obj_X,Obj_Y,Obj_Z,Obj_Angle" << endl;

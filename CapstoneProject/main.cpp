@@ -81,6 +81,15 @@ public:
 
 int main(int argc, char **argv1)
 {
+	LPSTR cmdArgs;
+	PROCESS_INFORMATION ProcessInfo; //This is what we get as an [out] parameter
+	STARTUPINFO StartupInfo; //This is an [in] parameter
+
+	ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
+	StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
+
+	
+
 	// ask user for config file
 	//get file location and name
 	/*string fileName = "VASTConfig.xml";
@@ -175,16 +184,25 @@ int main(int argc, char **argv1)
 		cout << "Entered " << mode << " which is not an option." << endl;
 	}
 
-	system("PAUSE");
 
 
 	//launch post-sim executable if the post-sim box is checked
 	//if (vast->_VASTConfigMap[VIZ])
+	Sleep(1000);
 
+	string str = "PostSim/TestAutonomousVehicleDemo.exe";
+
+	cmdArgs = const_cast<char *>(str.c_str());
 	
-
 	if (Boolean(vast->_VASTConfigMap[VIZ]).value())
-		//system("TestAutonomousVehicleDemo.exe");
+	{
+		CreateProcess(NULL, cmdArgs,
+			NULL, NULL, FALSE, 0, NULL,
+			NULL, &StartupInfo, &ProcessInfo);
+		//system("PostSim\\TestAutonomousVehicleDemo.exe");
+	}
+		
+	system("PAUSE");
 
 	return 0;
 }

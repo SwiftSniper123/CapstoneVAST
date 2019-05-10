@@ -53,7 +53,7 @@ private:
 	int runID = 0;
 
 	// Define locations for output files
-	const char *RunDataFileName = "RunData.csv";
+	const char *RunDataFileName = "PostSim/RunData.csv";
 	string MetricsFileName = "Metrics.csv";
 	string AVColDetInitFileName = "CollisionDetection/CollisionDetection_Data/AVColDetInit.csv";
 	string AVColDetInfoFileName = "CollisionDetection/CollisionDetection_Data/AVColDetInfo.csv";
