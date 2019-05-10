@@ -1,0 +1,8 @@
+Run_ID,Time,Obj_ID,Obj_X,Obj_Y,Obj_Z,Obj_Angle
+0,0,SmartAlec,2,2,-2,0
+0,1,SmartAlec,3,2,-2,0
+0,1,DumbAlec,7,6,4,45
+0,2,SmartAlec,4,2,-2,0
+0,2,DumbAlec,7,6,4,45
+0,3,SmartAlec,5,2,-2,0
+0,2,DumbAlec,7,6,3,45
