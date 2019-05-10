@@ -4,7 +4,7 @@
 #include "VAST.h"
 #include "SumoEnvironment.h"
 #include "LargestDeltaPosition.h"
-//#include "gtest/gtest.h"
+#include "gtest/gtest.h"
 
 using namespace std;
 
@@ -77,7 +77,7 @@ public:
 };
 
 
-//void unit_test(int argc, char **argv1);
+void unit_test(int argc, char **argv1);
 
 int main(int argc, char **argv1)
 {
@@ -109,7 +109,7 @@ int main(int argc, char **argv1)
 	int mode;
 	cout << "Run VAST in which of the following modes: \n\n"
 		<< "  1 - Scenario Replications\n\n"
-		//<< "  2 - Verification Testing of VAST System\n\n"
+		<< "  2 - Verification Testing of VAST System\n\n"
 		<< "  Mode: ";
 	cin >> mode;
 	if (mode == 1)
@@ -177,36 +177,20 @@ int main(int argc, char **argv1)
 	{
 		cout << "\n\n====Verification Testing of VAST System====" << endl;
 		// Unit Tests
-		//unit_test(argc, argv1);
+		unit_test(argc, argv1);
+		system("PAUSE");
+		return 0;
 	}
 	else
 	{
 		cout << "Entered " << mode << " which is not an option." << endl;
-	}
-
-
-
-	//launch post-sim executable if the post-sim box is checked
-	//if (vast->_VASTConfigMap[VIZ])
-	Sleep(1000);
-
-	string str = "PostSim/TestAutonomousVehicleDemo.exe";
-
-	cmdArgs = const_cast<char *>(str.c_str());
-	
-	if (Boolean(vast->_VASTConfigMap[VIZ]).value())
-	{
-		CreateProcess(NULL, cmdArgs,
-			NULL, NULL, FALSE, 0, NULL,
-			NULL, &StartupInfo, &ProcessInfo);
-		//system("PostSim\\TestAutonomousVehicleDemo.exe");
 	}
 		
 	system("PAUSE");
 
 	return 0;
 }
-/*
+
 void unit_test(int uargc, char **uargv1)
 {
 	try
@@ -219,4 +203,4 @@ void unit_test(int uargc, char **uargv1)
 	{
 		cerr << "VAST unit tests threw an exception during verification.\n";
 	}
-}*/
+}

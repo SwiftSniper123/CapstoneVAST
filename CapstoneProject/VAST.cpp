@@ -310,17 +310,6 @@ void VAST::Run()
 	ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
 	StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
 
-	//open the collision detection module
-	string str = "CollisionDetection/CollisionDetection.exe";
-	cmdArgs = const_cast<char *>(str.c_str());
-
-	/*//executes the external module
-	CreateProcess(NULL, cmdArgs,
-		NULL, NULL, FALSE, 0, NULL,
-		NULL, &StartupInfo, &ProcessInfo);*/
-
-	
-
 	timeStep = Double(_VASTConfigMap[TIME_STEP]).value();
 
 	cout << "\nBeginning Run...\n-------------------------------------------------------------------" << endl;
@@ -399,5 +388,34 @@ void VAST::Run()
 	RunData.close();
 
 	cout << "\nRun ends" << endl;
+
+	std::ifstream  src(RunDataFileName, std::ios::binary);
+	std::ofstream  dst(RunDataCopyFileName, std::ios::binary);
+
+	dst << src.rdbuf();
+
+	//open the collision detection module
+	string str = "CollisionDetection/CollisionDetection.exe";
+	cmdArgs = const_cast<char *>(str.c_str());
+
+	/*//executes the external module
+	CreateProcess(NULL, cmdArgs,
+		NULL, NULL, FALSE, 0, NULL,
+		NULL, &StartupInfo, &ProcessInfo);*/
+
+	//launch post-sim executable if the post-sim box is checked
+	//if (vast->_VASTConfigMap[VIZ])
+
+	str = "PostSim/TestAutonomousVehicleDemo.exe";
+
+	cmdArgs = const_cast<char *>(str.c_str());
+
+	if (Boolean(this->_VASTConfigMap[VIZ]).value())
+	{
+		/*CreateProcess(NULL, cmdArgs,
+			NULL, NULL, FALSE, 0, NULL,
+			NULL, &StartupInfo, &ProcessInfo);*/
+		//system("PostSim\\TestAutonomousVehicleDemo.exe");
+	}
 	
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="18" failures="0" disabled="0" errors="0" timestamp="2019-05-10T11:59:07" time="0.067" name="AllTests">
+  <testsuite name="Test_ScenarioMetrics" tests="2" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="DefaultTrueMetricTest" status="run" time="0" classname="Test_ScenarioMetrics" />
+    <testcase name="MetricDestructor" status="run" time="0" classname="Test_ScenarioMetrics" />
+  </testsuite>
+  <testsuite name="DefaultTest" tests="1" failures="0" disabled="0" errors="0" time="0">
+    <testcase name="TrueInSumoEnvironment" status="run" time="0" classname="DefaultTest" />
+  </testsuite>
+  <testsuite name="Test_SumoEnvironment" tests="1" failures="0" disabled="0" errors="0" time="0.001">
+    <testcase name="ConstructorAndDestructor" status="run" time="0.001" classname="Test_SumoEnvironment" />
+  </testsuite>
+  <testsuite name="Test_VAST" tests="3" failures="0" disabled="0" errors="0" time="0.042">
+    <testcase name="TrueInTestVASTLibrary" status="run" time="0" classname="Test_VAST" />
+    <testcase name="Constructor" status="run" time="0.001" classname="Test_VAST" />
+    <testcase name="Parse" status="run" time="0.035" classname="Test_VAST" />
+  </testsuite>
+  <testsuite name="Test_VType" tests="11" failures="0" disabled="0" errors="0" time="0.018">
+    <testcase name="DefaultTrueIsTrue" status="run" time="0" classname="Test_VType" />
+    <testcase name="IsVType" status="run" time="0" classname="Test_VType" />
+    <testcase name="GetSQLite3Type" status="run" time="0" classname="Test_VType" />
+    <testcase name="GetValueFromPassingToConstructor" status="run" time="0" classname="Test_VType" />
+    <testcase name="SetValueFromDefaultConstructor" status="run" time="0.001" classname="Test_VType" />
+    <testcase name="SpecialStringFunctions" status="run" time="0" classname="Test_VType" />
+    <testcase name="SpecialDoubleFunctions" status="run" time="0" classname="Test_VType" />
+    <testcase name="SpecialIntegerFunctions" status="run" time="0" classname="Test_VType" />
+    <testcase name="SpecialBooleanFunctions" status="run" time="0" classname="Test_VType" />
+    <testcase name="SpecialArrayFunctions" status="run" time="0.005" classname="Test_VType" />
+    <testcase name="MapOfVTypes" status="run" time="0" classname="Test_VType" />
+  </testsuite>
+</testsuites>
