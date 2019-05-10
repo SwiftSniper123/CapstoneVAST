@@ -325,19 +325,13 @@ void VAST::Run()
 
 	cout << "\nBeginning Run..." << endl;
 
-	//open run data file and add header line
-	/*if (remove(RunDataFileName) != 0)
-		perror("Error deleting file");
-	else
-		puts("File successfully deleted");*/
-
 	RunData.open(RunDataFileName, std::ios_base::out);
 	RunData << "Run_ID,Time,Obj_ID,Obj_X,Obj_Y,Obj_Z,Obj_Angle" << endl;
 
 	env->Initialize();
 	for (int i = 0; i < AVs.size(); i++)
 	{
-		//AVs[i]->Initialize();
+		AVs[i]->Initialize();
 	}
 
 	env->Connect();

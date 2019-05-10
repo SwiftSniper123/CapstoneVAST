@@ -21,6 +21,8 @@ public:
 
 	void Initialize()
 	{
+		/* Code to spawn an external process if necessary
+
 		ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
 		StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
 
@@ -32,7 +34,7 @@ public:
 		//executes the python script from the console to allow the AV to control itself
 		CreateProcess(NULL, cmdArgs,
 			NULL, NULL, FALSE, 0, NULL,
-			NULL, &StartupInfo, &ProcessInfo);
+			NULL, &StartupInfo, &ProcessInfo); */
 	}
 
 	void Update()
