@@ -1,0 +1,6 @@
+_id,_x,_y,_type
+n1,-500,0,priority
+n2,-250,0,traffic_light
+n3,-150,200,traffic_light
+n4,0,0,
+n5,150,200,
