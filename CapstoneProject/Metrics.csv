@@ -1,1 +1,2 @@
-Run_ID,AV_ID,Metric_Name,Metric_Value
+Run_ID, AV_ID, Metric_Name, Metric_Value
+0, AV_ID,LargestDeltaPosition,1000.000000

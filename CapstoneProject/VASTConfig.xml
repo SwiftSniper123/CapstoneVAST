@@ -55,7 +55,7 @@
                     <name>max_run_time</name>
                 </key>
                 <value>
-                    <name>1000</name>
+                    <name>100</name>
                 </value>
             </pair>
             <pair type="mandatory">
@@ -63,7 +63,7 @@
                     <name>metrics</name>
                 </key>
                 <value>
-                    <name>AvgSpeed, AvgAccel, AvgDecel</name>
+                    <name>LargestDeltaPosition</name>
                 </value>
             </pair>
         </map>
