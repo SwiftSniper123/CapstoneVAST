@@ -129,9 +129,11 @@ int main(int argc, char **argv1)
 
 			if (metric == "LargestDeltaPosition")
 			{
-				metricTemp.push_back(new LargestDeltaPosition(vast->AVs[i], vast->env));
+				ScenarioMetric *newMetric = new LargestDeltaPosition(vast->AVs[i], vast->env);
+				metricTemp.push_back(newMetric);
 			}
 		}
+		vast->metrics.push_back(metricTemp);
 	}
 
 	//run VAST

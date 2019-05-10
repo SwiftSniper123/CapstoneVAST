@@ -367,7 +367,7 @@ void VAST::fillMap(string currentModule, dataMap &run_Data, string type, string 
 
 void VAST::publishMetrics()
 {
-	Metrics.open(MetricsFileName);
+	Metrics.open(MetricsFileName, std::ios_base::out);
 	Metrics << "Run_ID, AV_ID, Metric_Name, Metric_Value" << endl;
 
 	for (int n = 0; n < AVs.size(); n++)
@@ -415,7 +415,7 @@ void VAST::Run()
 	//open the collision detection module
 	//CreateProcess(
 	//system("collisiondetection.exe");
-	string str = "collisiondetection.exe";
+	string str = "CollisionDetection.exe";
 	cmdArgs = const_cast<char *>(str.c_str());
 
 	//executes the python script from the console to allow the AV to control itself

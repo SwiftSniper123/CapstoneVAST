@@ -2,7 +2,7 @@
 
 
 
-LargestDeltaPosition::LargestDeltaPosition(AV* _av, Environment *_env) : ScenarioMetric (_av, _env)
+LargestDeltaPosition::LargestDeltaPosition(AV* _av, Environment *_env) : ScenarioMetric ("LargestDeltaPosition",_av, _env)
 {
 	value = 0;
 	prevPosition = {};

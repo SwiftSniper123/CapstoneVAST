@@ -10,6 +10,7 @@ public:
 	~LargestDeltaPosition();
 	/*inherited function*/
 	void calculate();
+	
 private:
 	vector3 prevPosition;
 	bool initial = true;
