@@ -34,11 +34,14 @@ void SumoEnvironment::Update()
 {
 	//currentData[DURATION] = new Double(1.0);
 	//currentData[TARGET_VELOCITY] = new Double(1.0);
-	
+
 	//cout << "\nUpdating Environment Data\n";
-	traci.vehicle.moveToXY(AVs[0]->name, "1to2", 0, AVs[0]->position.x, AVs[0]->position.y, 90, 2);
-	
-	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVs[0]->name).getString();
+	for (int i = 0; i < AVs.size(); i++)
+	{
+		traci.vehicle.moveToXY(AVs[i]->name, "1to2", 0, AVs[i]->position.x, AVs[i]->position.y, AVs[i]->rotation.y, 2);
+		//std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVs[i]->name).getString();
+	}
+
 	/*std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
 	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);*/
 
@@ -86,7 +89,7 @@ void SumoEnvironment::Update()
 			tempRotation.y = traci.vehicle.getAngle(objList[n]);
 			tempRotation.z = 0;
 
-			std::cout << "\nObst '" << objList[n] << "' pos: " << traci.vehicle.getPosition(objList[n]).getString();
+			//std::cout << "\nObst '" << objList[n] << "' pos: " << traci.vehicle.getPosition(objList[n]).getString();
 
 			dynamicObstacles.push_back(new Obstacle(objList[n], tempPos, tempBounds, tempRotation));
 		}
@@ -109,17 +112,16 @@ void SumoEnvironment::Initialize()
 
 		int seed = rand() % 10000; //Generates a random seed for Sumo
 		
-		str = exeLocation + " -c " + configFileLocation + " --remote-port 1337 --seed " + std::to_string(seed);
-
+		str = exeLocation + " -c " + configFileLocation + " --no-step-log --remote-port 1337 --seed " + std::to_string(seed);
 	}
 
 	else if (!seed.empty())
 	{
-		str = exeLocation + " -c " + configFileLocation + " --remote-port 1337 --seed " + seed;
+		str = exeLocation + " -c " + configFileLocation + " --no-step-log --remote-port 1337 --seed " + seed;
 	}
 
 	else
-		str = exeLocation + " -c " + exeLocation + " --remote-port 1337";
+		str = exeLocation + " -c " + exeLocation + " --no-step-log --remote-port 1337";
 
 	//cmdArgs = ConvertString(str);
 	cmdArgs = const_cast<char *>(str.c_str());
@@ -129,7 +131,7 @@ void SumoEnvironment::Initialize()
 		NULL, &StartupInfo, &ProcessInfo);
 
 	std::cout << "\nOpening SUMO\n";
-	Sleep(1000);
+	Sleep(5000);
 }
 
 void SumoEnvironment::Connect()
@@ -146,60 +148,6 @@ void SumoEnvironment::Close()
 	traci.close();
 }
 
-/*
-void SumoEnvironment::getMapInformation()
-{
-	//int IDcount = traci.vehicle.getIDCount();
-
-	vector<string> IDlist = traci.vehicle.getIDList();
-	vector<VType*> vehicleIDs;
-	vector<VType*> positions;
-	vector<VType*> velocities;
-	vector<VType*> accelerations;
-
-
-	// iterate through the list of SUMO vehicle ids
-	for (int i = 0; i < IDlist.size(); i++)
-	{
-		string veh = IDlist[i];
-		vehicleIDs.push_back(new String(veh)); // place the vehicle id in the array
-		// query SUMO via traci methods and compile datamap data
-		libsumo::TraCIPosition XYZ(traci.vehicle.getPosition(veh));
-		positions.push_back(new Vector3(XYZ.x, XYZ.y, XYZ.z));
-		velocities.push_back(new Double(traci.vehicle.getSpeed(veh)));
-		accelerations.push_back(new Double(traci.vehicle.getAcceleration(veh)));
-	}
-
-	// put data in the map under these runData keys
-	currentData[OBSTACLE_IDS] = new Array(vehicleIDs);
-	currentData[OBSTACLE_POS] = new Array(positions);
-	currentData[OBSTACLE_VEL] = new Array(velocities);
-	currentData[OBSTACLE_ACC] = new Array(accelerations);
-}
-
-void SumoEnvironment::changeAVCommand()
-{
-	String one("1");
-	String zero("0");
-
-	double speed, duration;
-
-	speed = stod(currentData["TargetVelocity"]->s_value());
-	duration = stod(currentData["Duration"]->s_value());
-
-	for (vector<string>::iterator av = _AVid.begin(); av != _AVid.end(); av++)
-	{
-		if (currentData["AVLogic"] == &one)
-		{
-			traci.vehicle.slowDown(*av, speed, duration);
-		}
-		if (currentData["AVLogic"] == &zero)
-		{
-			traci.vehicle.setSpeed(*av, speed * 2);
-		}
-	}
-}*/
-
 void SumoEnvironment::setSeed(string _seed)
 {
 	seed = _seed;
@@ -210,23 +158,10 @@ void SumoEnvironment::addAV(AV *AV)
 	AVs.push_back(AV);
 	//string pos = std::to_string(AV->position.x) + "," + std::to_string(AV->position.y) + "," + std::to_string(AV->position.z);
 	traci.vehicle.add(AV->name, "route0", "Car", "0");
-	traci.vehicle.moveToXY(AV->name, "1to2", 0, AV->position.x, AV->position.z, AV->position.y, 2);
-	std::cout << "\nvehicle position: " << traci.vehicle.getPosition(AV->name).getString();
+	traci.vehicle.moveToXY(AV->name, "1to2", 0, AV->position.x, AV->position.z, AV->rotation.y, 2);
+	//std::cout << "\nvehicle position: " << traci.vehicle.getPosition(AV->name).getString();
 }
 
-/*
-void SumoEnvironment::addAV(AV *AV)
-{
-	_AVid.push_back(AV->getName());
-}
-
-dataMap SumoEnvironment::callUpdateFunctions()
-{
-	//changeAVCommand();
-	getMapInformation();
-	return currentData;
-}
-*/
 void SumoEnvironment::stopReplication(bool another, string runID)
 {
 

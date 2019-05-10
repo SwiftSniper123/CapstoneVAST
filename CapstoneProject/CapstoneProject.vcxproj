@@ -89,6 +89,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -140,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AV.h" />
-    <ClInclude Include="AverageAcceleration.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="LargestDeltaPosition.h" />
     <ClInclude Include="Obstacle.h" />
@@ -159,6 +159,5 @@
     <ClInclude Include="VType.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

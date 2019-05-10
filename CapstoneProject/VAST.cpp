@@ -2,28 +2,22 @@
 
 VAST::VAST()
 {
-	//_VASTConfigMap = new dataMap();
 }
-
 
 VAST::~VAST()
 {
 }
 
-VAST::VAST(AV* _AV, Environment* _env)
-{
-
-}
-
-
 void VAST::Parse(string _file)
 {
 	ptree pt1;
-	string _currentKey;
-	string _currentModule;
-	string _currentValue;
+
+	// Variables to track current position in the xml structure
+	string _currentKey; 
+	string _currentModule; // Current overarching module
+	string _currentValue; 
 	string _type;
-	const string _delim = ", ";
+	const string _delim = ", "; // Used when parsing optional fields
 
 	try {
 		read_xml(_file, pt1);
@@ -34,28 +28,13 @@ void VAST::Parse(string _file)
 	}
 	try
 	{
-		//printTree(pt1, 0);
-
-		//std::cout << "\n\n" << pt1.get<string>("VAST.module.map.pair.key");
-
-		//std::cout << pt1.size;
-		//std::cout << pt1.get_child("VAST.module");
-
 		BOOST_FOREACH(ptree::value_type const& node, pt1.get_child(VAST_MODULE))
 		{
-			//cerr << node.first.data. << "\n";
 			boost::property_tree::ptree subtree = node.second;
 
 			if (node.first == MODULE)
 			{
-				/*
-				dataMap _AVConfig;
-				dataMap _AVRun_Data;
-				dataMap _EnvConfig;
-				dataMap _EnvRun_Data; */
-
 				_currentModule = subtree.get<string>("<xmlattr>.module");
-				//std::cout << "module: " << subtree.get<string>("<xmlattr>.module") << "\n";
 
 				BOOST_FOREACH(boost::property_tree::ptree::value_type const& map, subtree.get_child(MAP))
 				{
@@ -63,7 +42,6 @@ void VAST::Parse(string _file)
 
 					BOOST_FOREACH(boost::property_tree::ptree::value_type const& pair, subMap.get_child(""))
 					{
-						//std::cout << "pair: " << pair.first << "\n";
 						boost::property_tree::ptree key = pair.second;
 
 						string label = pair.first;
@@ -71,14 +49,12 @@ void VAST::Parse(string _file)
 						{
 							if (label == KEY)
 							{
-								//std::cout << "Key: " << key.get<string>("name") << "\n";
 								_currentKey = key.get<string>(NAME);
 							}
 
 							else if (label == VALUE)
 							{
 								_currentValue = key.get<string>(NAME);
-								//std::cout << "Value: " << _currentValue << "\n";
 
 								if (_currentValue != "")
 								{
@@ -131,22 +107,22 @@ void VAST::Parse(string _file)
 										if (_currentKey == ENV_OBSTACLE_PORT)
 										{
 											Integer *v = new Integer(key.get<int>(NAME));
-											_EnvConfig.insert(namedData(_currentKey, v));
+											_EnvConfig[_currentKey] = v;
 										}
 										else if (_currentKey == EXE_LOCATION)
 										{
 											String *v = new String(key.get<string>(NAME));
-											_EnvConfig.insert(namedData(_currentKey, v));
+											_EnvConfig[_currentKey] = v;
 										}
 										else if (_currentKey == ENV_BOUNDS)
 										{
 											Vector3 *v = new Vector3(key.get<string>(NAME));
-											_EnvConfig.insert(namedData(_currentKey, v));
+											_EnvConfig[_currentKey] = v;
 										}
 										else if (_currentKey == CONFIG_LOCATION)
 										{
 											String *v = new String(key.get<string>(NAME));
-											_EnvConfig.insert(namedData(_currentKey, v));
+											_EnvConfig[_currentKey] = v;
 										}
 										else
 										{
@@ -168,7 +144,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												String *v = new String(val);
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else if (_currentKey == AV_MOVEMENT_PORT)
@@ -176,7 +152,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Integer *v = new Integer(new VType(val));
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else if (_currentKey == AV_EXE_LOCATION)
@@ -184,7 +160,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												String *v = new String(new VType(val));
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else if (_currentKey == AV_LOCATION)
@@ -192,7 +168,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Vector3 *v = new Vector3(new VType(val));
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else if (_currentKey == AV_ORIENTATION)
@@ -200,7 +176,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Vector3 *v = new Vector3(new VType(val));
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else if (_currentKey == AV_BOUNDS)
@@ -208,7 +184,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Vector3 *v = new Vector3(new VType(val));
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else if (_currentKey == SENSORS)
@@ -216,7 +192,7 @@ void VAST::Parse(string _file)
 											string val = key.get<string>(NAME);
 											if (!val.empty()) {
 												Array *v = new Array(new VType(val));
-												_AVConfig.insert(namedData(_currentKey, v));
+												_AVConfig[_currentKey] = v;
 											}
 										}
 										else
@@ -235,13 +211,11 @@ void VAST::Parse(string _file)
 						}
 					}
 				}
-				//std::cout << std::endl;
 
-				// instantiation and other aggregate data joining
-
+				// Module specific tasks
 				if (_currentModule == "AV")
 				{
-					string name = _AVConfig.at("av_name")->s_value();
+					//Add config maps to a vector to support multiple AVs.
 					_AVConfigs.push_back(_AVConfig);
 				}
 				else if (_currentModule == "Environment")
@@ -252,59 +226,13 @@ void VAST::Parse(string _file)
 				{
 					
 				}
-				
-				//if (_currentModule == AV_MODULE)
-				//{
-				//	//VType *name = _AVConfig.at(AV_NAME);
-				//	//av_array->add(name);
-
-				//	/*
-				//	// add the AV name to the VAST Config list of AV IDs used by other components like ScenarioMetric
-				//	if (_VASTConfigMap->find(AV_LIST) != _VASTConfigMap->end() &&
-				//		_VASTConfigMap->at(AV_LIST)->isA(ARRAY_TYPE))
-				//	{
-				//		Array* av_array = ((Array*)_VASTConfigMap->at(AV_LIST));
-				//		av_array->add(new String(name));
-				//	}
-
-				//	// add the AV name to the AV Run data list of AV IDs used by other components like ScenarioMetric
-				//	if (_AVRun_Data.find(AV_LIST) != _AVRun_Data.end() &&
-				//		_AVRun_Data[AV_LIST]->isA(ARRAY_TYPE))
-				//	{
-				//		Array* av_array = ((Array*)_AVRun_Data[AV_LIST]);
-				//		av_array->add(new String(name));
-				//	}*/
-
-				//	// store the config and run data under this AV ID
-				//	//_all_AVConfigs->emplace(name->s_value(), _AVConfig);
-				//	//_all_AVRunData->emplace(name->s_value(), _AVRun_Data);
-				//}
-
-				//else if (_currentModule == ENVIRONMENT_MODULE)
-				//{
-				//	// create an Environment ID based upon the list size, then store config and run data
-				//	//string ID = "" + (int(_all_EnvConfigs->size()) + 1);
-				//	//_all_EnvConfigs->emplace(ID, _EnvConfig);
-				//	//_all_EnvRunData->emplace(ID, _EnvRun_Data);
-				//}
-				//else if (_currentModule == VAST_MODULE)
-				//{
-				//	/*_EventTree = new EventTree(
-				//		((Double*)_VASTConfigMap->at(TIME_STEP))->value(),
-				//		((Double*)_VASTConfigMap->at(TIME_RATIO))->value(),
-				//		((Double*)_VASTConfigMap->at(MAX_RUN_TIME))->value(),
-				//		((Integer*)_VASTConfigMap->at(NUM_REPLCATION))->value(),
-				//		_dbName);*/
-				//}
 			}
-
-
 		}
-		/*_VASTConfigMap->insert(namedData(AV_LIST, av_array));*/
 	}
-	catch (...)
+	catch(...)
 	{
-		//throw VASTConfigurationError("VAST configuration has run into an error.");
+		cerr << "Error parsing file";
+		return;
 	}
 }
 
@@ -357,11 +285,11 @@ void VAST::fillMap(string currentModule, dataMap &run_Data, string type, string 
 
 	if (currentModule == ENVIRONMENT_MODULE)
 	{
-		run_Data.insert(namedData(key, v));
+		run_Data.emplace(namedData(key, v));
 	}
 	else if (currentModule == AV_MODULE)
 	{
-		run_Data.insert(namedData(key, v));
+		run_Data.emplace(namedData(key, v));
 	}
 }
 
@@ -382,9 +310,20 @@ void VAST::Run()
 	ZeroMemory(&StartupInfo, sizeof(StartupInfo)); //Fills StartupInfo with zeros
 	StartupInfo.cb = sizeof StartupInfo; //Only parameter of StartupInfo that needs to be configured
 
+	//open the collision detection module
+	string str = "CollisionDetection/CollisionDetection.exe";
+	cmdArgs = const_cast<char *>(str.c_str());
+
+	/*//executes the external module
+	CreateProcess(NULL, cmdArgs,
+		NULL, NULL, FALSE, 0, NULL,
+		NULL, &StartupInfo, &ProcessInfo);*/
+
+	
+
 	timeStep = Double(_VASTConfigMap[TIME_STEP]).value();
 
-	cout << "Run begins" << endl;
+	cout << "\nBeginning Run..." << endl;
 
 	//open run data file and add header line
 	/*if (remove(RunDataFileName) != 0)
@@ -408,23 +347,15 @@ void VAST::Run()
 	for (int i = 0; i < AVs.size(); i++)
 	{
 		env->addAV(AVs[i]);
-		AVColDetInit << "0," << AVs[i]->name << endl; //write the AV initialization information
+		AVColDetInit << runID << "," << AVs[i]->name << "," << AVs[i]->bounds.x << "," << AVs[i]->bounds.y << "," << AVs[i]->bounds.z << endl; //write the AV initialization information
 	}
 	AVColDetInit.close();
-
-	//open the collision detection module
-	//system("collisiondetection.exe");
-	string str = "CollisionDetection.exe";
-	cmdArgs = const_cast<char *>(str.c_str());
-
-	//executes the python script from the console to allow the AV to control itself
-	/*CreateProcess(NULL, cmdArgs,
-		NULL, NULL, FALSE, 0, NULL,
-		NULL, &StartupInfo, &ProcessInfo);*/
 	
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
 	{
+		cout << "Run: " << runID <<", Sim Time: " << currentSimTime << "\n";
+
 		//update environment		
 		env->Update();
 		
@@ -459,8 +390,8 @@ void VAST::Run()
 		ObsColDetInfo.close();
 
 		//calculate metrics
-		for (int a = 0; a < AVs.size(); a++)
-			for (int m = 0; m < metrics.size(); m++)
+		for (int a = 0; a < metrics.size(); a++)
+			for (int m = 0; m < metrics[a].size(); m++)
 				metrics[a][m]->calculate();
 
 		//advance current time to the environment time
@@ -474,4 +405,5 @@ void VAST::Run()
 	RunData.close();
 
 	cout << "\nRun ends" << endl;
+	
 }

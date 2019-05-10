@@ -4,6 +4,7 @@
 #include "VAST.h"
 #include "SumoEnvironment.h"
 #include "LargestDeltaPosition.h"
+//#include "gtest/gtest.h"
 
 using namespace std;
 
@@ -36,10 +37,14 @@ public:
 
 	void Update()
 	{
-		this->position.x += 1;
+		if (this->position.x < 100)
+		{
+			this->position.x += 1;
+		}
+		
 		this->position.z = -2;
 	}
-
+	
 	dataMap AVMap;
 
 private:
@@ -48,26 +53,29 @@ private:
 	STARTUPINFO StartupInfo; //This is an [in] parameter
 };
 
-//Environment example
-class UnityEnvironment : public Environment
+class DumbAV : public AV
 {
 public:
-	UnityEnvironment() {};
-	UnityEnvironment(string _exeLocation, string _staticObstacleOutput, string _dynamicObstacleRun, string _dynamicObstacleConfig)
+	DumbAV() {};
+	DumbAV(string _name, vector3 _position, vector3 _bounds, vector3 _rotation, int _port, string _exe, dataMap _AVMap)
+		: AV(_name, _position, _bounds, _rotation, _port, _exe)
 	{
-		exeLocation = _exeLocation;
-		staticObstacleOutput = _staticObstacleOutput;
-		dynamicObstacleRun = _dynamicObstacleRun;
-		dynamicObstacleConfig = _dynamicObstacleConfig;
+		AVMap = _AVMap;
+	};
+	void Initialize()
+	{
+	
 	}
-private:
-	string exeLocation;
-	string staticObstacleOutput;
-	string dynamicObstacleRun;
-	string dynamicObstacleConfig;
+	void Update()
+	{
+		//this->position.x += 1;
+		//this->position.z = -2;
+	}
+	dataMap AVMap;
 };
 
 
+//void unit_test(int argc, char **argv1);
 
 int main(int argc, char **argv1)
 {
@@ -86,67 +94,109 @@ int main(int argc, char **argv1)
 	cin >> fileName;
 
 	vast->Parse(fileName);
-	dataMap envMap = vast->_EnvConfig;
 
-	vector3 envBound;
-	envBound.x = Vector3(envMap[ENV_BOUNDS]).x();
-	envBound.y = Vector3(envMap[ENV_BOUNDS]).y();
-	envBound.z = Vector3(envMap[ENV_BOUNDS]).z();
-
-	vast->env = new SumoEnvironment(envMap[CONFIG_LOCATION]->s_value(),envMap[EXE_LOCATION]->s_value(),Integer(envMap[ENV_OBSTACLE_PORT]).value(),envBound,vast->_EnvRun_Data);
-
-	for (int i = 0; i < vast->_AVConfigs.size(); i++)
+	int mode;
+	cout << "Run VAST in which of the following modes: \n\n"
+		<< "  1 - Scenario Replications\n\n"
+		//<< "  2 - Verification Testing of VAST System\n\n"
+		<< "  Mode: ";
+	cin >> mode;
+	if (mode == 1)
 	{
-		dataMap AVMap = vast->_AVConfigs[i];
-		vector3 avLoc;
-		avLoc.x = Vector3(AVMap[AV_LOCATION]).x();
-		avLoc.y = Vector3(AVMap[AV_LOCATION]).y();
-		avLoc.z = Vector3(AVMap[AV_LOCATION]).z();
+		dataMap envMap = vast->_EnvConfig;
 
-		vector3 avBound;
-		avBound.x = Vector3(AVMap[AV_BOUNDS]).x();
-		avBound.y = Vector3(AVMap[AV_BOUNDS]).y();
-		avBound.z = Vector3(AVMap[AV_BOUNDS]).z();
+		vector3 envBound;
+		envBound.x = Vector3(envMap[ENV_BOUNDS]).x();
+		envBound.y = Vector3(envMap[ENV_BOUNDS]).y();
+		envBound.z = Vector3(envMap[ENV_BOUNDS]).z();
 
-		vector3 avOrientation;
-		avOrientation.x = Vector3(AVMap[AV_ORIENTATION]).x();
-		avOrientation.y = Vector3(AVMap[AV_ORIENTATION]).y();
-		avOrientation.z = Vector3(AVMap[AV_ORIENTATION]).z();
+		vast->env = new SumoEnvironment(envMap[CONFIG_LOCATION]->s_value(), envMap[EXE_LOCATION]->s_value(), Integer(envMap[ENV_OBSTACLE_PORT]).value(), envBound, vast->_EnvRun_Data);
 
-		vast->AVs.push_back(new GroundAV(AVMap[AV_NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
-	
-		
-	}
-
-	vector<ScenarioMetric*> metricTemp;
-	Array metrics = Array(vast->_VASTConfigMap[METRICS]);
-	
-	for (int i = 0; i < metrics.arraySize(); i++)
-	{
-		for (int i = 0; i < vast->AVs.size(); i++)
+		for (int i = 0; i < vast->_AVConfigs.size(); i++)
 		{
-			string metric = metrics.at_String(i)->value();
+			dataMap AVMap = vast->_AVConfigs[i];
+			vector3 avLoc;
+			avLoc.x = Vector3(AVMap[AV_LOCATION]).x();
+			avLoc.y = Vector3(AVMap[AV_LOCATION]).y();
+			avLoc.z = Vector3(AVMap[AV_LOCATION]).z();
 
-			if (metric == "LargestDeltaPosition")
+			vector3 avBound;
+			avBound.x = Vector3(AVMap[AV_BOUNDS]).x();
+			avBound.y = Vector3(AVMap[AV_BOUNDS]).y();
+			avBound.z = Vector3(AVMap[AV_BOUNDS]).z();
+
+			vector3 avOrientation;
+			avOrientation.x = Vector3(AVMap[AV_ORIENTATION]).x();
+			avOrientation.y = Vector3(AVMap[AV_ORIENTATION]).y();
+			avOrientation.z = Vector3(AVMap[AV_ORIENTATION]).z();
+
+			if (i == 0)
 			{
-				ScenarioMetric *newMetric = new LargestDeltaPosition(vast->AVs[i], vast->env);
-				metricTemp.push_back(newMetric);
+				vast->AVs.push_back(new GroundAV(AVMap[AV_NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
 			}
-		}
-		vast->metrics.push_back(metricTemp);
-	}
+			else if (i == 1)
+			{
+				vast->AVs.push_back(new DumbAV(AVMap[AV_NAME]->s_value(), avLoc, avBound, avOrientation, Integer(AVMap[AV_MOVEMENT_PORT]).value(), AVMap[AV_EXE_LOCATION]->s_value(), vast->_AVRun_Data));
+			}
 
-	//run VAST
-	vast->Run();
+		}
+
+		vector<ScenarioMetric*> metricTemp;
+		Array metrics = Array(vast->_VASTConfigMap[METRICS]);
+
+		for (int i = 0; i < metrics.arraySize(); i++)
+		{
+			for (int j = 0; j < vast->AVs.size(); j++)
+			{
+				string metric = metrics.at_String(i)->value();
+
+				if (metric == "LargestDeltaPosition")
+				{
+					ScenarioMetric *newMetric = new LargestDeltaPosition(vast->AVs[j], vast->env);
+					metricTemp.push_back(newMetric);
+				}
+			}
+			vast->metrics.push_back(metricTemp);
+		}
+
+		//run VAST
+		vast->Run();
+	}
+	else if (mode == 2)
+	{
+		cout << "\n\n====Verification Testing of VAST System====" << endl;
+		// Unit Tests
+		//unit_test(argc, argv1);
+	}
+	else
+	{
+		cout << "Entered " << mode << " which is not an option." << endl;
+	}
 
 	system("PAUSE");
 
 
 	//launch post-sim executable if the post-sim box is checked
 	//if (vast->_VASTConfigMap[VIZ])
+
 	
-	if (vast->_VASTConfigMap[VIZ])
-		system("TestAutonomousVehicleDemo.exe");
+
+	if (Boolean(vast->_VASTConfigMap[VIZ]).value())
+		//system("TestAutonomousVehicleDemo.exe");
 
 	return 0;
 }
+/*
+void unit_test(int uargc, char **uargv1)
+{
+	try
+	{
+		::testing::InitGoogleTest(&uargc, uargv1);
+		RUN_ALL_TESTS();
+		cout << "Test output file location: VASTTesting\\testOutput\\VAST_tests.xml" << endl;
+	}
+	catch (...)
+	{
+		cerr << "VAST unit tests threw an exception during verification.\n";
+	}
+}*/

@@ -32,5 +32,8 @@ void LargestDeltaPosition::calculate()
 		if (temp > value)
 			value = temp;
 
+		prevPosition.x = av->position.x;
+		prevPosition.y = av->position.y;
+		prevPosition.z = av->position.z;
 	}
 }

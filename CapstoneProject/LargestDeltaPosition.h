@@ -6,6 +6,7 @@ class LargestDeltaPosition :
 	public ScenarioMetric
 {
 public:
+	LargestDeltaPosition() {};
 	LargestDeltaPosition(AV* _av, Environment *_env);
 	~LargestDeltaPosition();
 	/*inherited function*/

@@ -16,6 +16,9 @@
     <Filter Include="Open Source">
       <UniqueIdentifier>{d79326e8-dc4c-43e7-abef-dd995e343086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit Tests">
+      <UniqueIdentifier>{ebe43108-c9e8-4929-a94c-fff1645633d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="TraCIDefs.h">
       <Filter>Open Source</Filter>
-    </ClInclude>
-    <ClInclude Include="AverageAcceleration.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="socket.h">
       <Filter>Open Source</Filter>
