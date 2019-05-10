@@ -9,6 +9,7 @@
 #include <map>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -50,7 +51,7 @@ private:
 	double currentSimTime = 0;
 	double timeStep;
 
-	string RunDataFileName = "RunData.csv";
+	const char *RunDataFileName = "RunData.csv";
 	string MetricsFileName = "Metrics.csv";
 	string AVColDetInitFileName = "AVColDetInit.csv";
 	string AVColDetInfoFileName = "AVColDetInfo.csv";

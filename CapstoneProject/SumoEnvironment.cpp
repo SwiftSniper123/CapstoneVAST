@@ -37,12 +37,12 @@ void SumoEnvironment::Update()
 	
 	//cout << "\nUpdating Environment Data\n";
 	traci.vehicle.moveToXY(AVs[0]->name, "1to2", 0, AVs[0]->position.x, AVs[0]->position.y, 90, 2);
-
+	
 	std::cout << "\nAV pos: " << traci.vehicle.getPosition(AVs[0]->name).getString();
-	std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
-	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);
+	/*std::cout << "\nAV vel: " << traci.vehicle.getSpeedWithoutTraCI(AVs[0]->name);
+	std::cout << "\nAV accel: " << traci.vehicle.getAccel(AVs[0]->name);*/
 
-	std::vector<string> objList = traci.simulation.getLoadedIDList();
+	std::vector<string> objList = traci.vehicle.getIDList();
 
 	for (int n = 0; n < objList.size(); n++)
 	{
@@ -53,6 +53,21 @@ void SumoEnvironment::Update()
 				instObj = false;
 		}
 
+		for (int i = 0; i < dynamicObstacles.size(); i++)
+		{
+			if (objList[n] == dynamicObstacles[i]->_name)
+			{
+				dynamicObstacles[i]->_position.x = traci.vehicle.getPosition(objList[n]).x;
+				dynamicObstacles[i]->_position.y = 0;
+				dynamicObstacles[i]->_position.z = traci.vehicle.getPosition(objList[n]).y;
+
+				dynamicObstacles[i]->_rotation.x = 0;
+				dynamicObstacles[i]->_rotation.y = traci.vehicle.getAngle(objList[n]);
+				dynamicObstacles[i]->_rotation.z = 0;
+
+				instObj = false;
+			}
+		}
 
 		if (instObj)
 		{
@@ -71,10 +86,12 @@ void SumoEnvironment::Update()
 			tempRotation.y = traci.vehicle.getAngle(objList[n]);
 			tempRotation.z = 0;
 
+			std::cout << "\nObst '" << objList[n] << "' pos: " << traci.vehicle.getPosition(objList[n]).getString();
+
 			dynamicObstacles.push_back(new Obstacle(objList[n], tempPos, tempBounds, tempRotation));
 		}
 
-		objList.clear();
+		//objList.clear();
 	}
 	traci.simulationStep();
 }
@@ -193,6 +210,7 @@ void SumoEnvironment::addAV(AV *AV)
 	AVs.push_back(AV);
 	//string pos = std::to_string(AV->position.x) + "," + std::to_string(AV->position.y) + "," + std::to_string(AV->position.z);
 	traci.vehicle.add(AV->name, "route0", "Car", "0");
+	traci.vehicle.moveToXY(AV->name, "1to2", 0, AV->position.x, AV->position.z, AV->position.y, 2);
 	std::cout << "\nvehicle position: " << traci.vehicle.getPosition(AV->name).getString();
 }
 

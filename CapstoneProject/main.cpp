@@ -37,7 +37,7 @@ public:
 	void Update()
 	{
 		this->position.x += 1;
-		this->position.y = -2;
+		this->position.z = -2;
 	}
 
 	dataMap AVMap;
