@@ -368,11 +368,11 @@ void VAST::fillMap(string currentModule, dataMap &run_Data, string type, string 
 void VAST::publishMetrics()
 {
 	Metrics.open(MetricsFileName);
-	Metrics << "Run_ID, AV_ID, Metric_Name, Metric_Value" << endl;
+	Metrics << "Run_ID,AV_ID,Metric_Name,Metric_Value" << endl;
 
-	for (int n = 0; n < AVs.size(); n++)
-		for (int m = 0; m < metrics.size(); m++)
-			Metrics << "0, AV_ID," + metrics[n][m]->name + "," + std::to_string(metrics[n][m]->value) << endl;
+	for (int n = 0; n < metrics.size(); n++)
+		for (int m = 0; m < metrics[n].size(); m++)
+			Metrics << "0," + metrics[n][m]->av->name + "," +metrics[n][m]->name + "," + std::to_string(metrics[n][m]->value) << endl;
 
 	Metrics.close();
 }
@@ -403,25 +403,24 @@ void VAST::Run()
 
 	env->Connect();
 	
-	AVColDetInit.open(AVColDetInitFileName, std::ios_base::app);
+	//initialize AV collision table
+	AVColDetInit.open(AVColDetInitFileName, std::ios_base::out);
 	for (int i = 0; i < AVs.size(); i++)
 	{
 		env->addAV(AVs[i]);
 		AVColDetInit << "0," << AVs[i]->name << endl; //write the AV initialization information
 	}
-
 	AVColDetInit.close();
 
 	//open the collision detection module
-	//CreateProcess(
 	//system("collisiondetection.exe");
 	string str = "collisiondetection.exe";
 	cmdArgs = const_cast<char *>(str.c_str());
 
 	//executes the python script from the console to allow the AV to control itself
-	CreateProcess(NULL, cmdArgs,
+	/*CreateProcess(NULL, cmdArgs,
 		NULL, NULL, FALSE, 0, NULL,
-		NULL, &StartupInfo, &ProcessInfo);
+		NULL, &StartupInfo, &ProcessInfo);*/
 	
 	//execute the program until the max run time is achieved
 	while (currentSimTime < Double(_VASTConfigMap[MAX_RUN_TIME]).value())
@@ -431,6 +430,7 @@ void VAST::Run()
 		
 		//output run data each time step
 		//get states of AVs and publish information to files
+		AVColDetInfo.open(AVColDetInfoFileName);
 		for (int nA = 0; nA < AVs.size(); nA++)
 		{
 			AVs[nA]->Update();
@@ -438,19 +438,25 @@ void VAST::Run()
 			RunData << "0," << currentSimTime << "," << AVs[nA]->name << "," << AVs[nA]->position.x << "," << AVs[nA]->position.y
 				<< "," << AVs[nA]->position.z << "," << AVs[nA]->rotation.y << endl;
 
-			//overwrite existing data point
-			AVColDetInfo.open(AVColDetInfoFileName);
+			//add existing data point
 			AVColDetInfo << "0," << currentSimTime << "," << AVs[nA]->name << "," << AVs[nA]->position.x << "," << AVs[nA]->position.y 
 				<< "," << AVs[nA]->position.z << "," << AVs[nA]->rotation.y << endl;
-
-			AVColDetInfo.close();
 		}
+		AVColDetInfo.close();
+
 		//add obstacle information
+		ObsColDetInfo.open(ObsColDetInfoFileName);
 		for (int n = 0; n < env->dynamicObstacles.size(); n++)
 		{
 			RunData << "0," << currentSimTime << "," << env->dynamicObstacles[n]->_name << "," << env->dynamicObstacles[n]->_position.x << ","
-				<< env->dynamicObstacles[n]->_position.y << "," << env->dynamicObstacles[n]->_position.z << "," << "0" << endl;
+				<< env->dynamicObstacles[n]->_position.y << "," << env->dynamicObstacles[n]->_position.z << "," << env->dynamicObstacles[n]->_rotation.y << endl;
+
+			//add existing data point
+			ObsColDetInfo << "0," << currentSimTime << "," << env->dynamicObstacles[n]->_name << "," << env->dynamicObstacles[n]->_position.x << ","
+				<< env->dynamicObstacles[n]->_position.y << "," << env->dynamicObstacles[n]->_position.z << "," << env->dynamicObstacles[n]->_rotation.y << ","
+				<< env->dynamicObstacles[n]->_bounds.x << "," << env->dynamicObstacles[n]->_bounds.y << "," << env->dynamicObstacles[n]->_bounds.z << endl;
 		}
+		ObsColDetInfo.close();
 
 		//calculate metrics
 		for (int a = 0; a < AVs.size(); a++)
