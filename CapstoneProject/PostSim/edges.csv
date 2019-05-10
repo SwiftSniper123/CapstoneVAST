@@ -1,0 +1,5 @@
+_from,_to,_id,_type
+n1,n2,1to2,3L45
+n2,n3,2to3,2L15
+n3,n4,3to4,3L30
+n4,n5,out,3L30
